@@ -22,7 +22,6 @@
         <script src="{{asset('retos/bootstrap/js/popper.min.js')}}"></script>
         <script src="{{asset('retos/bootstrap/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('retos/plugins/scrollbar/jquery.mCustomScrollbar.concat.min.js')}}"></script>
-        <script src="{{asset('retos/js/app.js')}}"></script>
         <script src="{{asset('retos/js/custom.js')}}"></script>
 
         <script src="{{asset('retos/plugins/sweetalerts/promise-polyfill.js')}}"></script>
@@ -40,7 +39,6 @@
         <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
         <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
         <script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js"></script>
-
         <style>
             .form-control {
                 border: 1px solid #ccc;
@@ -99,6 +97,7 @@
                 $nofrontales = 0;
                 $nombre = "";
                 $pais = "";
+                $vandera = "";
                 $rango = "";
                 $VpAcumulado = "";
                 $VgpAcumulado = "";
@@ -118,6 +117,18 @@
             @foreach ($sponsor as $data)
                 {{ $nombre = $data->Nombre }}
                 @switch($data->Pais)
+                    @case('LAT')
+                        {{ $pais = 'México' }}
+                        @break
+                    @case('LAT')
+                        {{ $pais = 'México' }}
+                        @break
+                    @case('LAT')
+                        {{ $pais = 'México' }}
+                        @break
+                    @case('LAT')
+                        {{ $pais = 'México' }}
+                        @break
                     @case('LAT')
                         {{ $pais = 'México' }}
                         @break
@@ -165,7 +176,7 @@
                            </a>
                        </li>
                        <li class="menu">
-                       <a href="http://services.nikken.com.mx/kiai/11198503">
+                       <a href="http://services.nikken.com.mx/kiai/{{ $associateid }}">
                                <div class="">
                                    <i class="flaticon-bar-chart-2" style="color: white !important;"> </i>
                                    <span style="color: white !important;">Reto Kiai</span>
@@ -173,7 +184,7 @@
                            </a>
                        </li>
                        <li class="menu">
-                           <a href="http://services.nikken.com.mx/serpro/11198503-Y">
+                           <a href="http://services.nikken.com.mx/serpro/{{ $associateid }}-Y">
                                <div class="">
                                    <i class="flaticon-bar-chart-2" style="color: white !important;"></i>
                                    <span style="color: white !important;">Reto Ser Pro</span>
@@ -181,7 +192,7 @@
                            </a>
                        </li>
                        <li class="menu">
-                           <a href="../404">
+                           <a href="http://keizentaishi.test/kaizen/{{ $associateid }}">
                                <div class="">
                                    <i class="flaticon-bar-chart-2" style="color: white !important;"></i>
                                    <span style="color: white !important;">Reto Kaizen</span>
@@ -189,7 +200,7 @@
                            </a>
                        </li>
                        <li class="menu">
-                           <a href="../404" >
+                           <a href="http://keizentaishi.test/taishi/{{ $associateid }}" >
                                <div class="">
                                    <i class="flaticon-bar-chart-2" style="color: white !important;"></i>
                                    <span  style="color: white !important;">Reto Taishi</span>
@@ -198,7 +209,6 @@
                        </li>
                    </ul>
                </nav>
-   
             </div>
             
             <div id="content" class="main-content">
@@ -355,37 +365,39 @@
         </div>
 
         <div style="display: none">
-            {{ $incorporados = $frontales + $nofrontales}}
-            @if ($incorporados >= 6)
-                <script>
-                    function updateKaizen(){
-                        var frontales = $('#incdosFrontales').val();
-                        var nofrontales = $('#indosGP').val();
-                        $.ajax({
-                            type: 'GET',
-                            url: 'updatekaizen',
-                            data: {sponsorid: 474503, nfrontales: frontales, nnofrontales: nofrontales},
-                            success: function(Response) {
-                                if(Response == ''){
-                                    Swal.fire({
-                                        type: 'error',
-                                        title: 'Oops...',
-                                        text: 'Aun no cumples el reto',
-                                    })
-                                }
-                                else{
-                                    Swal.fire({
-                                        type: 'success',
-                                        title: 'Oops...',
-                                        text: 'Aun no cumples el reto',
-                                    })
-                                }
+            {{ $incorporados = $frontales + $nofrontales }}
+            <input type="text" id="associateid" value="{{ $associateid }}">
+            <script>
+                var URLactual = window.location;
+                function updateKaizen(){
+                    var associateid = $('#associateid').val();
+                    var data = { sponsorid: associateid }
+                    $.ajax({
+                        type: 'GET',
+                        url: URLactual + '/updatekaizen',
+                        data: data,
+                        success: function(Response) {
+                            if(Response == ''){
+                                swal({
+                                    title: '',
+                                    text: "Aun no cumples el reto Kaizen",
+                                    type: 'error',
+                                    padding: '2em'
+                                })
                             }
-                        });
-                    }
-                    updateKaizen();
-                </script>
-            @endif
+                            else{
+                                swal({
+                                    title: 'Felicidades!',
+                                    text: "Has cunplido el reto Kaizen!",
+                                    type: 'success',
+                                    padding: '2em'
+                                })
+                            }
+                        }
+                    });
+                }
+                updateKaizen();
+            </script>
         </div>
 
         <footer class="footer-section theme-footer">

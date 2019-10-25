@@ -29,7 +29,6 @@
         <link href="{{asset('retos/plugins/sweetalerts/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('retos/plugins/sweetalerts/sweetalert.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('retos/css/ui-kit/custom-sweetalert.css')}}" rel="stylesheet" type="text/css" />
-        
         <script src="{{asset('retos/plugins/sweetalerts/sweetalert2.min.js')}}"></script>
 
         <script src="{{asset('retos/plugins/table/datatable/datatables.js')}}"></script>
@@ -164,7 +163,7 @@
                             </a>
                         </li>
                         <li class="menu">
-                        <a href="http://services.nikken.com.mx/kiai/11198503">
+                        <a href="http://services.nikken.com.mx/kiai/{{ $associateid }}">
                                 <div class="">
                                     <i class="flaticon-bar-chart-2" style="color: white !important;"> </i>
                                     <span style="color: white !important;">Reto Kiai</span>
@@ -172,7 +171,7 @@
                             </a>
                         </li>
                         <li class="menu">
-                            <a href="http://services.nikken.com.mx/serpro/11198503-Y">
+                            <a href="http://services.nikken.com.mx/serpro/{{ $associateid }}-Y">
                                 <div class="">
                                     <i class="flaticon-bar-chart-2" style="color: white !important;"></i>
                                     <span style="color: white !important;">Reto Ser Pro</span>
@@ -180,7 +179,7 @@
                             </a>
                         </li>
                         <li class="menu">
-                            <a href="../404">
+                            <a href="http://keizentaishi.test/kaizen/{{ $associateid }}">
                                 <div class="">
                                     <i class="flaticon-bar-chart-2" style="color: white !important;"></i>
                                     <span style="color: white !important;">Reto Kaizen</span>
@@ -188,7 +187,7 @@
                             </a>
                         </li>
                         <li class="menu">
-                            <a href="../404" >
+                            <a href="http://keizentaishi.test/taishi/{{ $associateid }}" >
                                 <div class="">
                                     <i class="flaticon-bar-chart-2" style="color: white !important;"></i>
                                     <span  style="color: white !important;">Reto Taishi</span>
@@ -204,58 +203,58 @@
                     <div class="main-container" id="container">
                         <div id="content" class="main-content">
                             <div class="container">
-                                    <div class="row layout-spacing">
-                                            <div class="col-lg-12">
-                                                <div class="statbox widget box box-shadow">
-                                                    <div class="widget-header">
-                                                        <div class="row">
-                                                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                                                <h4>{{ $nombre }}</h4>
-                                                            </div>                 
+                                <div class="row layout-spacing">
+                                    <div class="col-lg-12">
+                                        <div class="statbox widget box box-shadow">
+                                            <div class="widget-header">
+                                                <div class="row">
+                                                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                                        <h4>{{ $nombre }}</h4>
+                                                    </div>                 
+                                                </div>
+                                            </div>
+                                            <div class="widget-content widget-content-area">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col-md-12">
+                                                            <img src="{{asset('retos/img/taishi_logo.png')}}" width="100%">
                                                         </div>
                                                     </div>
-                                                    <div class="widget-content widget-content-area">
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <div class="form-group col-md-12">
-                                                                    <img src="{{asset('retos/img/taishi_logo.png')}}" width="100%">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <div class="form-group col-md-12">
-                                                                    <p>Pais.</p>
-                                                                    <input id="" type="text" name="" value="{{ $pais }}" class="form-control-rounded form-control" required="" readonly>
-                                                                </div>
-                                                                <div class="form-group col-md-12">
-                                                                    <p>Rango.</p>
-                                                                    <input id="" type="text" name="" value="{{ $rango }}" class="form-control-rounded form-control" required="" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <div class="form-group col-md-12">
-                                                                    <p>VP Acumulado.</p>
-                                                                    <input id="" type="text" name="" value="{{ $VpAcumulado }}" class="form-control-rounded form-control" required="" readonly>
-                                                                </div>
-                                                                <div class="form-group col-md-12">
-                                                                    <p>VGP Acumulado.</p>
-                                                                    <input id="vgpFinalTxt" type="text" name="vgpFinalTxt" value="{{$VgpAcumulado }}" class="form-control-rounded form-control" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <div class="form-group col-md-12">
-                                                                    <p>Incoporados Frontales:</p>
-                                                                    <input id="incdosFrontales" type="text" name="incdosFrontales" value="{{$frontales}}" class="form-control-rounded form-control" readonly>
-                                                                </div>
-                                                                <div class="form-group col-md-12">
-                                                                    <p>Incorporados de Grupo Personal.</p>
-                                                                    <input id="indosGP" type="text" name="indosGP" value="{{$nofrontales}}" class="form-control-rounded form-control" readonly>
-                                                                </div>
-                                                            </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col-md-12">
+                                                            <p>Pais.</p>
+                                                            <input id="" type="text" name="" value="{{ $pais }}" class="form-control-rounded form-control" required="" readonly>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <p>Rango.</p>
+                                                            <input id="" type="text" name="" value="{{ $rango }}" class="form-control-rounded form-control" required="" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col-md-12">
+                                                            <p>VP Acumulado.</p>
+                                                            <input id="" type="text" name="" value="{{ $VpAcumulado }}" class="form-control-rounded form-control" required="" readonly>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <p>VGP Acumulado.</p>
+                                                            <input id="vgpFinalTxt" type="text" name="vgpFinalTxt" value="{{$VgpAcumulado }}" class="form-control-rounded form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group col-md-12">
+                                                            <p>Incoporados Frontales:</p>
+                                                            <input id="incdosFrontales" type="text" name="incdosFrontales" value="{{$frontales}}" class="form-control-rounded form-control" readonly>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <p>Incorporados de Grupo Personal.</p>
+                                                            <input id="indosGP" type="text" name="indosGP" value="{{$nofrontales}}" class="form-control-rounded form-control" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
             
                                 <div class="row layout-spacing">
                                     <div class="col-lg-12">
@@ -327,38 +326,42 @@
         </div>
 
         <div style="display: none">
-            {{ $incorporados = $frontales + $nofrontales}}
-            @if ($incorporados >= 6)
-                <script>
-                    function updateKaizen(){
-                        var frontales = $('#incdosFrontales').val();
-                        var nofrontales = $('#indosGP').val();
-                        $.ajax({
-                            type: 'GET',
-                            url: 'updatekaizen',
-                            data: {sponsorid: 9845903, nfrontales: frontales, nnofrontales: nofrontales},
-                            success: function(Response) {
-                                if(Response == ''){
-                                    Swal.fire({
-                                        type: 'error',
-                                        title: 'Oops...',
-                                        text: 'Aun no cumples el reto',
-                                    })
-                                }
-                                else{
-                                    Swal.fire({
-                                        type: 'success',
-                                        title: 'Ganaste...',
-                                        text: 'Ya has ganado el reto Taishi',
-                                    })
-                                }
+            {{ $incorporados = $frontales + $nofrontales }}
+            <input type="text" id="associateid" value="{{ $associateid }}">
+            <script>
+                var URLactual = window.location;
+                function updateTaishi(){
+                    var associateid = $('#associateid').val();
+                    var data = { sponsorid: associateid }
+                    $.ajax({
+                        type: 'GET',
+                        url: URLactual + '/updatetaishi',
+                        data: data,
+                        success: function(Response) {
+                            if(Response == ''){
+                                swal({
+                                    title: '',
+                                    text: "Aun no cumples el reto Taishi",
+                                    type: 'error',
+                                    padding: '2em'
+                                })
                             }
-                        });
-                    }
-                    updateKaizen();
-                </script>
-            @endif
+                            else{
+                                swal({
+                                    title: 'Felicidades!',
+                                    text: "Has cunplido el reto Taishi!",
+                                    type: 'success',
+                                    padding: '2em'
+                                })
+                            }
+                        }
+                    });
+                }
+                updateTaishi();
+            </script>
         </div>
+
+        
 
         <footer class="footer-section theme-footer">
             <div class="footer-section-1  sidebar-theme">
