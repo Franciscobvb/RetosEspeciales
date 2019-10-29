@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\kaizen;
+namespace App\Http\Controllers\Retos;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -42,5 +42,16 @@ class kaizenController extends Controller{
             $taishi = $conection->select("SELECT * FROM [dbo].[WinTaishi] WHERE associateid = $sponsorid");
         \DB::disconnect('sqlsrv');
         return \Response::json($taishi);
+    }
+
+    public function kiaiIndex(Request $request){
+        $associateid = $request->associateid;
+        $conexion = \DB::connection('sqlsrv');
+            $detail = $conexion->table('ClubKiai')->where('Associateid','=', $associateid)->orderBy('Periodo','ASC')->get();
+            $summary = $conexion->table('ResumenTrimestral')->where('AssociateId','=', $associateid)->orderBy('NoTrimestre','ASC') ->get();
+            $genealogy = $conexion->select(\DB::raw("exec SpGenPerId :Param1"),[':Param1' => $associateid]);
+            $getname = $conexion->select('select distinct AssociateName from ClubKiai where Associateid = ?',[$associateid]);
+        \DB::disconnect('sqlsrv'); 
+        return view('kaizentaishi/ClubKiai', compact('associateid', 'getname', 'genealogy', 'summary', 'detail'));
     }
 }
