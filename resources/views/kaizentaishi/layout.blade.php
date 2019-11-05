@@ -7,7 +7,7 @@
         <title>@yield('titulo')</title>
         <link rel="icon" type="image/x-icon" href="https://nikkenlatam.com/favicon.ico"/>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-        <link href="{{asset('retos/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('retos/bootstrap/css/bootstrap.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('retos/css/plugins.css')}}" rel="stylesheet" type="text/css" />
 
         <link rel="stylesheet" type="text/css" href="{{asset('retos/plugins/table/datatable/datatables.css')}}">
@@ -36,10 +36,10 @@
         <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
         <script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js"></script>
 
-        <link href="assets/css/ui-kit/custom-modal.css" rel="stylesheet" type="text/css" />
-        <script src="assets/js/modal/classie.js"></script>
-        <script src="assets/js/modal/modalEffects.js"></script>
+        <link href="{{asset('retos/css/ui-kit/custom-modal.css')}}" rel="stylesheet" type="text/css" />
+        <script src="{{asset('retos/js/modal/classie.js')}}"></script>
 
+        @yield('styles')
         <style>
             .form-control {
                 border: 1px solid #ccc;
@@ -97,7 +97,7 @@
             <div class="cs-overlay"></div>
             <div class="sidebar-wrapper sidebar-theme">
                 <div id="dismiss" class="d-lg-none"><i class="flaticon-cancel-12"></i></div>
-                <nav id="sidebar">
+                <nav id="sidebar" style="/*position: fixed; width: 17%;*/">
                     <ul class="navbar-nav theme-brand flex-row  d-none d-lg-flex">
                         <li class="nav-item d-flex">
                             <a href="javascript:void(0)" class="navbar-brand">
@@ -120,16 +120,16 @@
                             </a>
                             <ul class="submenu list-unstyled collapse show" id="ecommerce" data-parent="#accordionExample" style="">
                                 <li>
-                                    <a href="http://services.nikken.com.mx/kiai/{{ $associateid }}">Reto Kiai</a>
+                                    <a href="../kiai/{{ $associateid }}">Reto Kiai</a>
                                 </li>
                                 <li>
-                                    <a href="http://services.nikken.com.mx/serpro/{{ $associateid }}-Y">Reto Ser Pro</a>
+                                    <a href="../serpro/{{ $associateid }}-Y">Reto Ser Pro</a>
                                 </li>
                                 <li>
-                                    <a href="http://services.nikken.com.mx/kaizen/{{ $associateid }}">Reto Kaizen</a>
+                                    <a href="../kaizen/{{ $associateid }}">Reto Kaizen</a>
                                 </li>
                                 <li>
-                                    <a href="http://services.nikken.com.mx/taishi/{{ $associateid }}" >Reto Taishi</a>
+                                    <a href="../taishi/{{ $associateid }}" >Reto Taishi</a>
                                 </li>
                             </ul>
                         </li>
@@ -154,6 +154,8 @@
                     @yield('kaizen')
 
                     @yield('taishi')
+
+                    @yield('no')
 
                 </div>
             </div>
@@ -187,6 +189,7 @@
     <script src="{{asset('retos/bootstrap/js/popper.min.js')}}"></script>
     <script src="{{asset('retos/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('retos/plugins/scrollbar/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+    <script src="{{asset('retos/plugins/blockui/jquery.blockUI.min.js')}}"></script>
     <script src="{{asset('retos/js/app.js')}}"></script>
     <script>
         $(document).ready(function() {

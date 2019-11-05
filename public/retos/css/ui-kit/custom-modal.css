@@ -17,8 +17,8 @@ h1 { color: #ee3d50; }
     color: #25d5e4;
 }
 .login-footer a { color: #3862f5; }
-.modal-content { border: 1px solid #e9ecef; }
-.modal-header { border-bottom: 1px solid #e9ecef; }
+.modal-content { border: 1px transparent #e9ecef; }
+/*.modal-header { border-bottom: 1px transparent #e9ecef; }*/
 .modal-footer { border-top: 1px solid #f1f3f1; }
 .close { color: #888ea8; }
 .modal#profileModal .modal-content .rounded-circle, #loginModal .rounded-circle, #registerModal .rounded-circle {

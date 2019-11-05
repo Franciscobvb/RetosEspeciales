@@ -19,6 +19,7 @@
         $pais = "";
         $bandera = "";
         $rango = "";
+        $rangoN = "";
         $VpAcumulado = "";
         $VgpAcumulado = "";
         $incorporados = 0;
@@ -26,7 +27,7 @@
     @foreach ($response as $row)
         @php
             $num++;
-            $vpfinal = $vpfinal + $row->Vp;
+            $vpfinal = $vpfinal + $row->VpTotal;
         @endphp
         @if ($row->lvel == 1)
             @php $frontales++; @endphp
@@ -93,6 +94,9 @@
                 {{ $rango = "Diamante Real" }}
                 @break
         @endswitch
+        @php
+            $rangoN = $data->Rango;
+        @endphp
         {{ $rango }}
         {{ $VpAcumulado = $data->VpAcumulado }}
         {{ $VgpAcumulado = $data->VgpAcumulado }}
@@ -102,7 +106,44 @@
 
 @section('kaizen')
 <div class="row layout-spacing">
-    <div class="col-lg-12">
+    <div class="col-lg-3">
+        <div class="statbox widget box box-shadow">
+            <div class="widget-header">
+                <div class="row">            
+                </div>
+            </div>
+            <div class="widget-content widget-content-area text-center">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group col-md-12">
+                            <a href="javascript:void(0)">
+                                <img src="{{asset('retos/img/kaizen.png')}}" width="75%" data-toggle="modal" data-target=".bd-example-modal-lg-img">
+                            </a>
+                            <div class="modal fade bd-example-modal-lg bd-example-modal-lg-img" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header graph text-center" style="background-color: #3db3ac;">
+                                            <button type="button" class="close" style="color: #ffffff;" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body graph-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 text-center" id="trimestre1">
+                                                    <img src="{{asset('retos/img/kaizen.png')}}" width="100%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
         <div class="statbox widget box box-shadow">
             <div class="widget-header">
                 <div class="row">
@@ -120,7 +161,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group col-md-12">
-                            <p>Pais.</p>
+                            <p>País.</p>
                             <div class="input-group">
                                 <input id="" type="text" name="" value="{{ $pais }}" class="form-control-rounded-left form-control" readonly>
                                 <div class="input-group-append">
@@ -138,11 +179,11 @@
                     <div class="col-md-3">
                         <div class="form-group col-md-12">
                             <p>VP Acumulado.</p>
-                            <input id="" type="text" name="" value="{{ $VpAcumulado }}" class="form-control-rounded form-control" readonly>
+                            <input id="VpAcumulado" type="text" name="VpAcumulado" value="{{ $VpAcumulado }}" class="form-control-rounded form-control" readonly>
                         </div>
                         <div class="form-group col-md-12">
                             <p>VGP Acumulado.</p>
-                            <input id="vgpFinalTxt" type="text" name="vgpFinalTxt" value="{{$VgpAcumulado }}" class="form-control-rounded form-control" readonly>
+                            <input id="VgpAcumulado" type="text" name="VgpAcumulado" value="{{$VgpAcumulado }}" class="form-control-rounded form-control" readonly>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -155,6 +196,14 @@
                             <input id="indosGP" type="text" name="indosGP" value="{{$nofrontales}}" class="form-control-rounded form-control" readonly>
                         </div>
                     </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="form-group col-md-12">
+                            <p>Total Volumen Incorporados.</p>
+                            <input type="text" id="vpFinalpoint" class="form-control-rounded form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
                 </div>
             </div>
         </div>
@@ -164,9 +213,16 @@
 <div class="row layout-spacing">
     <div class="col-lg-12">
         <div class="statbox widget box box-shadow">
+            <div class="widget-header text-center">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>Genealogía Incorporados 2019</h4>
+                    </div>                 
+                </div>
+            </div>
             <div class="widget-content widget-content-area">
                 <div class="table-responsive mb-4">
-                    <table id="zero-config" class="table table-striped table-hover table-bordered sticky-thead" style="width:100%">
+                    <table id="zero-config-kaizen" class="table table-striped table-hover table-bordered sticky-thead" style="width:100%">
                         <thead>
                             @php
                                 $num = 1;
@@ -174,14 +230,24 @@
                                 $rango = "";
                             @endphp
                             <tr>
-                                <th>#</th>
-                                <th>Codigo Asociado</th>
-                                <th>Nombre</th>
-                                <th>Pais</th>
-                                <th>Rango</th>
-                                <th>Telefono</th>
-                                <th>Correo</th>
-                                <th>VP</th>
+                                <th style="color: gray">Código Asociado</th>
+                                <th style="color: gray">Nombre</th>
+                                <th style="color: gray">Rango</th>
+                                <th style="color: gray">País</th>
+                                <th style="color: gray" class="mesvp1">Teléfono</th>
+                                <th style="color: gray" class="mesvp1">Correo</th>
+                                <th style="color: gray">Fecha incorporación</th>
+                                <th style="color: gray" class="mesvp1">VP Enero</th>
+                                <th style="color: gray" class="mesvp2">VP Febrero</th>
+                                <th style="color: gray" class="mesvp3">VP Marzo</th>
+                                <th style="color: gray" class="mesvp4">VP Abril</th>
+                                <th style="color: gray" class="mesvp5">VP Mayo</th>
+                                <th style="color: gray" class="mesvp6">VP Junio</th>
+                                <th style="color: gray" class="mesvp7">VP Julio</th>
+                                <th style="color: gray" class="mesvp8">VP Agosto</th>
+                                <th style="color: gray" class="mesvp9">VP Septiembre</th>
+                                <th style="color: gray">VP Total 2019</th>
+                                <th style="color: gray">Nivel</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -212,38 +278,61 @@
                                     @endswitch
                                 </span>
                                 <tr>
-                                    <td class="text-primary">@php  echo $num; @endphp</td>
                                     <td>{{$row->associateid}}</td>
                                     <td>{{$row->Nombre}}</td>
-                                    <td>{{$row->Pais}}</td>
                                     <td>{{$rango}}</td>
-                                    <td>{{$row->Telefono}}</td>
-                                    <td>{{$row->Email}}</td>
-                                    <td>{{$row->Vp}}</td>
+                                    <td class="text-center">
+                                        <img src="{{asset("retos/img/$bandera")}}" width="15px">
+                                        {{$pais}}
+                                    </td>
+                                    <td class="mesvp1">{{$row->Telefono}}</td>
+                                    <td class="mesvp1">{{$row->Email}}</td>
+                                    <td>{{$row->FechaIncorp}}</td>
+                                    <td class="mesvp1">{{ $row->VpEnero }}</td>
+                                    <td class="mesvp2">{{ $row->VpFebrero }}</td>
+                                    <td class="mesvp3">{{ $row->VpMarzo }}</td>
+                                    <td class="mesvp4">{{ $row->VpAbril }}</td>
+                                    <td class="mesvp5">{{ $row->VpMayo }}</td>
+                                    <td class="mesvp6">{{ $row->VpJunio }}</td>
+                                    <td class="mesvp7">{{ $row->VpJulio }}</td>
+                                    <td class="mesvp8">{{ $row->VpAgosto }}</td>
+                                    <td class="mesvp9">{{ $row->VpSeptiembre }}</td>
+                                    <td>{{$row->VpTotal}}</td>
+                                    <td>
+                                        @if ($row->lvel != 1)
+                                            Grupo Pernsonal
+                                        @else
+                                            Frontal
+                                        @endif
+                                    </td>
                                 </tr>
                                 @php
                                     $num++;
-                                    $vpfinal = $vpfinal + $row->Vp;
+                                    $vpfinal = $vpfinal + $row->VpTotal;
                                 @endphp
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr class="table-dark">
-                                <th colspan="7">Volumen Grupal Personal</th>
-                                <th><span id="vpFinalLabel">@php  echo $vpfinal; @endphp</span></th>
-                            </tr>
-                            <tr>
-                                <th>#</th>
-                                <th>Codigo Asociado</th>
-                                <th>Nombre</th>
-                                <th>Pais</th>
-                                <th>Rango</th>
-                                <th>Telefono</th>
-                                <th>Correo</th>
-                                <th>VP</th>
+                                <th colspan="6">Total Volumen Incorporados</th>
+                                <th>
+                                    <span id="vpFinalLabel">@php echo $vpfinal; @endphp</span>
+                                    <script>
+                                        $("#vpFinalpoint").val($("#vpFinalLabel").text());
+                                    </script>
+                                </th>
                             </tr>
                         </tfoot>
                     </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h5>
+                            <span class="flaticon-left-arrow-12"></span>
+                            Desliza para ver tu Genealogía
+                            <span class="flaticon-arrow-left"></span>
+                        </h5>
+                    </div>
                 </div>
             </div>
         </div>
@@ -253,38 +342,78 @@
 
 @section('kaizenphp2')
 <div style="display: none">
-    {{ $incorporados = $frontales + $nofrontales }}
-    <input type="text" id="associateid" value="{{ $associateid }}">
-    <script>
-        var URLactual = window.location;
-        function updateKaizen(){
-            var associateid = $('#associateid').val();
-            var data = { sponsorid: associateid }
-            $.ajax({
-                type: 'GET',
-                url: URLactual + '/updatekaizen',
-                data: data,
-                success: function(Response) {
-                    if(Response == ''){
-                        swal({
-                            title: '',
-                            text: "Aun no cumples el reto Kaizen",
-                            type: 'error',
-                            padding: '2em'
-                        })
+    @if ($rangoN < 5)
+        <script>
+            function alertakaizen(){
+                swal({
+                    title: '',
+                    text: "Recuerda que puedes participar solo si eres rango Plata o Superior",
+                    type: 'warning',
+                    padding: '2em'
+                })
+            }
+            alertakaizen();
+        </script>
+    @else
+        <input type="hidden" id="associateid" value="{{ $associateid }}">
+        <script>
+            var URLactual = window.location;
+            function updateKaizen(){
+                var associateid = $('#associateid').val();
+                var data = { sponsorid: associateid }
+                $.ajax({
+                    type: 'GET',
+                    url: URLactual + '/updatekaizen',
+                    data: data,
+                    success: function(Response) {
+                        if(Response != ''){
+                            swal({
+                                title: 'Felicidades!',
+                                text: "Has cumplido el reto Kaizen!",
+                                type: 'success',
+                                padding: '2em'
+                            })
+                        }
+                        else{
+                            swal({
+                                title: 'Aún no cumples con el reto Kaizen.',
+                                text: "Recuerda que necesitas: 3 incorporados frontales,3 incorporados grupales, 5,000 VP, 50,000 VGP y 5,000 VP acumulados de incorporaciones para cumplir el reto.",
+                                type: 'warning',
+                                padding: '2em'
+                            })
+                        }
                     }
-                    else{
-                        swal({
-                            title: 'Felicidades!',
-                            text: "Has cumplido el reto Kaizen!",
-                            type: 'success',
-                            padding: '2em'
-                        })
-                    }
-                }
-            });
-        }
-        updateKaizen();
-    </script>
+                });
+            }
+            updateKaizen();
+        </script>
+    @endif
+    
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(".mesvp1").hide();
+        $(".mesvp2").hide();
+        $(".mesvp3").hide();
+        $(".mesvp4").hide();
+        $(".mesvp5").hide();
+        $(".mesvp6").hide();
+        $(".mesvp7").hide();
+        $(".mesvp8").hide();
+        $(".mesvp9").hide();
+
+        $(document).ready(function() {
+            $('#zero-config-kaizen').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    { extend: 'excel', className: 'btn btn-fill btn-fill-dark btn-rounded mb-4 mr-3', text:"<img src='{{ asset('retos/img/excel.png') }}' width='15px'></img> Exportar a Excel",}
+                ],
+            });
+        });
+    </script>
 @endsection
