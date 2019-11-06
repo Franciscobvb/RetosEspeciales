@@ -8,24 +8,25 @@ use Illuminate\Http\Request;
 class kaizenController extends Controller{
 
     public function index(Request $request){
-        $associateid = $request->associateid;
-        $NombreReto = "KAIZEN";
+        $associateid = base64_decode($request->associateid);
+        $NombreReto = "Equipo Kaizen";
         $periodo = date('Ym');
         $info = 'kaizen.png';
         $conection = \DB::connection('sqlsrv5');
             $sponsor = $conection->select("SELECT * FROM TotalKaizen WHERE associateid = $associateid");
             $response = $conection->select("EXEC [dbo].[Gen_Kaizen] $associateid, $periodo");
         \DB::disconnect('sqlsrv5');
+        $associateidencode = base64_encode($associateid);
         if(sizeof($sponsor) > 0){
-            return view('kaizentaishi/kaizen', compact('response', 'sponsor', 'associateid'));
+            return view('kaizentaishi/kaizen', compact('response', 'sponsor', 'associateid', 'associateidencode'));
         }
         else{
-            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info'));
+            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode'));
         }
     }
 
     public function updateTotalKaizen(Request $request){
-        $sponsorid = $request->sponsorid;
+        $sponsorid = base64_decode($request->sponsorid);
         $conection = \DB::connection('sqlsrv5');
             $kaizen = $conection->select("SELECT * from [dbo].[WinKaizen] WHERE associateid = $sponsorid");
             $sponsor = $conection->select("SELECT * FROM TotalKaizen WHERE associateid = $sponsorid");
@@ -35,24 +36,25 @@ class kaizenController extends Controller{
     }
 
     public function indexTaishi(Request $request){
-        $associateid = $request->associateid;
+        $associateid = base64_decode($request->associateid);
         $periodo = date('Ym');
-        $NombreReto = "TAISHI";
+        $NombreReto = "Equipo Taishi";
         $info = 'taishi.png';
         $conection = \DB::connection('sqlsrv5');
             $sponsor = $conection->select("SELECT * FROM TotalKaizen WHERE associateid = $associateid");
             $response = $conection->select("EXEC [dbo].[Gen_Kaizen] $associateid, $periodo");
         \DB::disconnect('sqlsrv5');
+        $associateidencode = base64_encode($associateid);
         if(sizeof($sponsor) > 0){
-            return view('kaizentaishi/taishi', compact('response', 'sponsor', 'associateid'));
+            return view('kaizentaishi/taishi', compact('response', 'sponsor', 'associateid', 'associateidencode'));
         }
         else{
-            return view('kaizentaishi.no', compact('NombreReto', 'associateid'));
+            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode'));
         }
     }
 
     public function updateTotalTaishi(Request $request){
-        $sponsorid = $request->sponsorid;
+        $sponsorid = base64_decode($request->sponsorid);
         $conection = \DB::connection('sqlsrv5');
             $taishi = $conection->select("SELECT * FROM [dbo].[WinTaishi] WHERE associateid = $sponsorid");
             $sponsor = $conection->select("SELECT * FROM TotalKaizen WHERE associateid = $sponsorid");
@@ -62,26 +64,30 @@ class kaizenController extends Controller{
     }
 
     public function kiaiIndex(Request $request){
-        $associateid = $request->associateid;
-        $NombreReto = "CLUB KIAI";
+        $associateid = base64_decode($request->associateid);
+        $NombreReto = "Club Kiai";
         $info = 'ClubKiai.png';
         $conexion = \DB::connection('sqlsrv5');
             $detail = $conexion->table('ClubKiai')->where('Associateid','=', $associateid)->orderBy('Periodo','ASC')->get();
             $summary = $conexion->table('ResumenTrimestral')->where('AssociateId','=', $associateid)->orderBy('NoTrimestre','ASC') ->get();
             $genealogy = $conexion->select(\DB::raw("exec SpGenPerId :Param1"),[':Param1' => $associateid]);
             $getname = $conexion->select('select distinct AssociateName from ClubKiai where Associateid = ?',[$associateid]);
-        \DB::disconnect('sqlsrv5'); 
+        \DB::disconnect('sqlsrv5');
+        $associateidencode = base64_encode($associateid);
         if(sizeof($detail) > 0){
-            return view('kaizentaishi/ClubKiai', compact('associateid', 'getname', 'genealogy', 'summary', 'detail'));
+            return view('kaizentaishi/ClubKiai', compact('associateid', 'getname', 'genealogy', 'summary', 'detail', 'associateidencode'));
         }
         else{
-            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info'));
+            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode'));
         }
     }
 
     public function serProIndex(Request $request){
-        $associateid = $request->associateid;
+        $associateid = base64_decode($request->associateid);
         $staff = $request->staff;
+        if(empty($staff)){
+            $staff = "N";
+        }
         $NombreReto = "Reto SER PRO";
         $info = 'serpro.png';
         $conexion = \DB::connection('sqlsrv5');
@@ -90,19 +96,20 @@ class kaizenController extends Controller{
             $getname = $conexion->select('select distinct Sponsor,Nombre,Email,Rango,Pais from TotalPro where Sponsor = ?',[$associateid]);
             $winners = $conexion->select('select * from TotalPro where Plata > =5 and Oro >=2 union all select * from TotalPro where Oro > = 4');   
         \DB::disconnect('sqlsrv5');
-
+        $associateidencode = base64_encode($associateid);
         if(sizeof($detail) > 0){
-            return view('kaizentaishi.SerPro', compact('associateid', 'detail', 'total', 'getname', 'winners', 'staff'));
+            return view('kaizentaishi.SerPro', compact('associateid', 'detail', 'total', 'getname', 'winners', 'staff', 'associateidencode'));
         }
         else{
-            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info'));
+            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode'));
         }
     }
 
     public function no(Request $request){
-        $associateid = $request->associateid;
-        $NombreReto = "SER PRO";
+        $associateid = base64_decode($request->associateid);
+        $NombreReto = "Reto SER PRO";
         $info = 'serpro.png';
-        return view('kaizentaishi/no', compact('NombreReto', 'associateid', 'info'));
+        $associateidencode = base64_encode($associateid);
+        return view('kaizentaishi/no', compact('NombreReto', 'associateid', 'info', 'associateidencode'));
     }
 }

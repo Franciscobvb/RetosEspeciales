@@ -1,11 +1,11 @@
 @extends('kaizentaishi.layout')
 
 @section('titulo')
-    Nikken | Kaizen
+    Nikken | Equipo Kaizen
 @endsection
 
 @section('reto')
-    Kaizen
+    Equipo Kaizen
 @endsection
 
 @section('kaizenphp1')
@@ -246,6 +246,8 @@
                                 <th style="color: gray" class="mesvp7">VP Julio</th>
                                 <th style="color: gray" class="mesvp8">VP Agosto</th>
                                 <th style="color: gray" class="mesvp9">VP Septiembre</th>
+                                <th style="color: gray" class="mesvp9">VP Octubre</th>
+                                <th style="color: gray" class="mesvp9">VP Noviembre</th>
                                 <th style="color: gray">VP Total 2019</th>
                                 <th style="color: gray">Nivel</th>
                             </tr>
@@ -297,10 +299,12 @@
                                     <td class="mesvp7">{{ $row->VpJulio }}</td>
                                     <td class="mesvp8">{{ $row->VpAgosto }}</td>
                                     <td class="mesvp9">{{ $row->VpSeptiembre }}</td>
+                                    <td class="mesvp9">{{ $row->VpOctubre }}</td>
+                                    <td class="mesvp9">{{ $row->VpNoviembre }}</td>
                                     <td>{{$row->VpTotal}}</td>
                                     <td>
                                         @if ($row->lvel != 1)
-                                            Grupo Pernsonal
+                                            Grupo Personal
                                         @else
                                             Frontal
                                         @endif
@@ -314,7 +318,7 @@
                         </tbody>
                         <tfoot>
                             <tr class="table-dark">
-                                <th colspan="6">Total Volumen Incorporados</th>
+                                <th colspan="6" class="text-right">Total Volumen Incorporados</th>
                                 <th>
                                     <span id="vpFinalLabel">@php echo $vpfinal; @endphp</span>
                                     <script>
@@ -346,7 +350,7 @@
         <script>
             function alertakaizen(){
                 swal({
-                    title: '',
+                    title: 'No cumples con los requisitos para este programa',
                     text: "Recuerda que puedes participar solo si eres rango Plata o Superior",
                     type: 'warning',
                     padding: '2em'

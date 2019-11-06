@@ -1,11 +1,11 @@
 @extends('kaizentaishi.layout')
 
 @section('titulo')
-    Nikken | Taishi
+    Nikken | Equipo Taishi
 @endsection
 
 @section('reto')
-    Taishi
+    Equipo Taishi
 @endsection
 
 @section('kaizenphp1')
@@ -241,6 +241,8 @@
                                 <th style="color: gray" class="mesvp7">VP Julio</th>
                                 <th style="color: gray" class="mesvp8">VP Agosto</th>
                                 <th style="color: gray" class="mesvp9">VP Septiembre</th>
+                                <th style="color: gray" class="mesvp9">VP Octubre</th>
+                                <th style="color: gray" class="mesvp9">VP Noviembre</th>
                                 <th style="color: gray" class="text-center">VP total 2019</th>
                                 <th style="color: gray" class="text-center">Nivel</th>
                             </tr>
@@ -330,6 +332,8 @@
                                     <td class="mesvp7">{{ $row->VpJulio }}</td>
                                     <td class="mesvp8">{{ $row->VpAgosto }}</td>
                                     <td class="mesvp9">{{ $row->VpSeptiembre }}</td>
+                                    <td class="mesvp9">{{ $row->VpOctubre }}</td>
+                                    <td class="mesvp9">{{ $row->VpNoviembre }}</td>
                                     <td>{{$row->VpTotal}}</td>
                                     <td>
                                         @if ($row->lvel != 1)
@@ -380,7 +384,7 @@
         <script>
             function alertaTaishi(){
                 swal({
-                    title: '',
+                    title: 'No cumples con los requisitos para este programa.',
                     text: "Recuerda que puedes participar solo si eres rango Platino o Superior",
                     type: 'warning',
                     padding: '2em'

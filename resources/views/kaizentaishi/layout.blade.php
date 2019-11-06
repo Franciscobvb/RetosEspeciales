@@ -120,16 +120,16 @@
                             </a>
                             <ul class="submenu list-unstyled collapse show" id="ecommerce" data-parent="#accordionExample" style="">
                                 <li>
-                                    <a href="../kiai/{{ $associateid }}">Reto Kiai</a>
+                                    <a href="../kiai/{{ $associateidencode }}">Club Kiai</a>
                                 </li>
                                 <li>
-                                    <a href="../serpro/{{ $associateid }}-Y">Reto Ser Pro</a>
+                                    <a href="../serpro/{{ $associateidencode }}/N">Reto Ser Pro</a>
                                 </li>
                                 <li>
-                                    <a href="../kaizen/{{ $associateid }}">Reto Kaizen</a>
+                                    <a href="../kaizen/{{ $associateidencode }}">Equipo Kaizen</a>
                                 </li>
                                 <li>
-                                    <a href="../taishi/{{ $associateid }}" >Reto Taishi</a>
+                                    <a href="../taishi/{{ $associateidencode }}">Equipo Taishi</a>
                                 </li>
                             </ul>
                         </li>

@@ -8,6 +8,9 @@ $(".mes6").hide();
 $(".mes7").hide();
 $(".mes8").hide();
 $(".mes9").hide();
+$(".mes10").hide();
+$(".mes11").hide();
+$(".mes12").hide();
 
 function showTrimestre1(){
     $("#trimestre1").show(1000);
@@ -26,6 +29,9 @@ function showTrimestre1(){
     $(".mes7").hide(800);
     $(".mes8").hide(800);
     $(".mes9").hide(800);
+    $(".mes10").hide(800);
+    $(".mes11").hide(800);
+    $(".mes12").hide(800);
 }
 
 function showTrimestre2(){
@@ -44,7 +50,10 @@ function showTrimestre2(){
     $(".mes6").show(1000);
     $(".mes7").show(1000);
     $(".mes8").show(1000);
-    $(".mes9").hide(1000);
+    $(".mes9").hide(800);
+    $(".mes10").hide(800);
+    $(".mes11").hide(800);
+    $(".mes12").hide(800);
 }
 
 function showTrimestre3(){
@@ -64,4 +73,7 @@ function showTrimestre3(){
     $(".mes7").hide(800);
     $(".mes8").hide(800);
     $(".mes9").show(1000);
+    $(".mes10").show(1000);
+    $(".mes11").show(1000);
+    $(".mes12").hide(800);
 }

@@ -1,7 +1,7 @@
 @extends('kaizentaishi.layout')
 
 @section('titulo')
-    Nikken | Ser pro
+    Nikken | Reto SER PRO
 @endsection
 
 @section('styles')
@@ -300,6 +300,8 @@
                                                                     <th style="color:white" class="mes7">Julio</th>
                                                                     <th style="color:white" class="mes8">Agosto</th>
                                                                     <th style="color:white" class="mes9">Septiembre</th>
+                                                                    <th style="color:white" class="mes10">Octubre</th>
+                                                                    <th style="color:white" class="mes11">Noviembre</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -316,7 +318,7 @@
                                                                         <?php  
                                                                             $color="";
 
-                                                                            for ($i = 1; $i < 10; $i++) {
+                                                                            for ($i = 1; $i < 12; $i++) {
                                                                                 $m = "";
 
                                                                                 if(strlen($i) == 1){
@@ -335,12 +337,6 @@
                                                                                     }
                                                                                 }
 
-                                                                                /*if($reg->FechaPlata >= 0 && $reg->FechaOro >= 0){
-                                                                                    if($reg->FechaPlata == "2019-".$m."-28" && $reg->FechaOro == "2019-".$m."-28" || $reg->FechaPlata == "2019-".$m."-30" && $reg->FechaOro == "2019-".$m."-30"|| $reg->FechaPlata == "2019-".$m."-31" && $reg->FechaOro == "2019-".$m."-31"){
-                                                                                        $color ="plata-oro";
-                                                                                    }
-                                                                                }*/
-
                                                                                 if($color == "plata"){
                                                                                     echo "<td class='mes" . $i ."'><img src='http://services.nikken.com.mx/retos/img/plata.png'></td>";
                                                                                 }
@@ -352,15 +348,6 @@
                                                                                 if($color == ""){
                                                                                     echo "<td class='mes" . $i ."'> - </td>";
                                                                                 }
-
-                                                                                /*if($color == 'plata-oro'){
-                                                                                    echo "
-                                                                                        <td class='mes" . $i ."'>
-                                                                                            <img src='http://services.nikken.com.mx/retos/img/plata.png'>
-                                                                                            <img src='http://services.nikken.com.mx/retos/img/oro.png'>
-                                                                                        </td>
-                                                                                    ";
-                                                                                }*/
                                                                             }
                                                                         ?>
                                                                     </tr>
@@ -384,6 +371,8 @@
                                                                     <th style="color:white" class="mes7">Julio</th>
                                                                     <th style="color:white" class="mes8">Agosto</th>
                                                                     <th style="color:white" class="mes9">Septiembre</th>
+                                                                    <th style="color:white" class="mes10">Octubre</th>
+                                                                    <th style="color:white" class="mes11">Noviembre</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -397,32 +386,38 @@
                                                                                 <p class="align-self-center mb-0">{{$reg->Associateid}}</p>
                                                                             </div>
                                                                         </td>
-                                                                        <?php  $color="";
-                                                                        for ($i = 1; $i < 10; $i++) {
-                                                                            $m = "";
-                                                                            if(strlen($i) ==1){
-                                                                                $m = 0 . $i;
-                                                                            }
-                                                                            if($reg->FechaPlata >= 0){    
+                                                                        <?php
+                                                                            $color="";
+                                                                            for ($i = 1; $i < 12; $i++) {
+                                                                                $m = "";
+
+                                                                                if(strlen($i) ==1){
+                                                                                    $m = 0 . $i;
+                                                                                }
+
                                                                                 if($reg->FechaPlata >= 0){
-                                                                                    if($reg->FechaPlata == "2019-".$m."-28" || $reg->FechaPlata == "2019-".$m."-30" || $reg->FechaPlata == "2019-".$m."-31"){
-                                                                                        $color ="plata";
+                                                                                    if($reg->FechaPlata >= 0){
+                                                                                        if($reg->FechaPlata == "2019-".$m."-28" || $reg->FechaPlata == "2019-".$m."-30" || $reg->FechaPlata == "2019-".$m."-31"){
+                                                                                            $color ="plata";
+                                                                                        }
                                                                                     }
                                                                                 }
-                                                                            }
-                                                                            if($reg->FechaOro >= 0){    
-                                                                                if($reg->FechaOro == "2019-".$m."-28" || $reg->FechaOro == "2019-".$m."-30" || $reg->FechaOro == "2019-".$m."-31"){
-                                                                                    $color ="oro";
+
+                                                                                if($reg->FechaOro >= 0){
+                                                                                    if($reg->FechaOro == "2019-".$m."-28" || $reg->FechaOro == "2019-".$m."-30" || $reg->FechaOro == "2019-".$m."-31"){
+                                                                                        $color ="oro";
+                                                                                    }
+                                                                                }
+
+                                                                                if($color =="plata"){
+                                                                                    echo "<td class='mes" . $i ."'><img src='http://services.nikken.com.mx/retos/img/plata.png'></td>";
+                                                                                }if($color=="oro"){
+                                                                                    echo "<td class='mes" . $i ."'><img src='http://services.nikken.com.mx/retos/img/oro.png'></td>";
+                                                                                }if($color==""){
+                                                                                    echo "<td class='mes" . $i ."'> - </td>";
                                                                                 }
                                                                             }
-                                                                            if($color =="plata"){
-                                                                                echo "<td class='mes" . $i ."'><img src='http://services.nikken.com.mx/retos/img/plata.png'></td>";
-                                                                            }if($color=="oro"){
-                                                                                echo "<td class='mes" . $i ."'><img src='http://services.nikken.com.mx/retos/img/oro.png'></td>";
-                                                                            }if($color==""){
-                                                                                echo "<td class='mes" . $i ."'> - </td>";
-                                                                            }
-                                                                        }?>
+                                                                        ?>
                                                                         
                                                                     </tr>
                                                                 @endforeach
@@ -445,6 +440,8 @@
                                                                     <th style="color:white" class="mes7">Julio</th>
                                                                     <th style="color:white" class="mes8">Agosto</th>
                                                                     <th style="color:white" class="mes9">Septiembre</th>
+                                                                    <th style="color:white" class="mes10">Octubre</th>
+                                                                    <th style="color:white" class="mes11">Noviembre</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -458,31 +455,34 @@
                                                                                 <p class="align-self-center mb-0">{{$reg->Associateid}}</p>
                                                                             </div>
                                                                         </td>
-                                                                        <?php  $color="";
-                                                                        for ($i = 1; $i < 10; $i++) {
-                                                                            $m = "";
-                                                                            if(strlen($i) ==1){
-                                                                                $m = 0 . $i;
-                                                                            }
-                                                                            if($reg->FechaPlata >= 0){
-                                                                                if($reg->FechaPlata == "2019-".$m."-28" || $reg->FechaPlata == "2019-".$m."-30" || $reg->FechaPlata == "2019-".$m."-31"){
-                                                                                    $color ="plata";
+                                                                        <?php
+                                                                            $color="";
+                                                                            for ($i = 1; $i < 12; $i++) {
+                                                                                $m = "";
+                                                                                if(strlen($i) ==1){
+                                                                                    $m = 0 . $i;
+                                                                                }
+                                                                                if($reg->FechaPlata >= 0){
+                                                                                    if($reg->FechaPlata == "2019-".$m."-28" || $reg->FechaPlata == "2019-".$m."-30" || $reg->FechaPlata == "2019-".$m."-31"){
+                                                                                        $color ="plata";
+                                                                                    }
+                                                                                }
+
+                                                                                if($reg->FechaOro >= 0){
+                                                                                    if($reg->FechaOro == "2019-".$m."-28" || $reg->FechaOro == "2019-".$m."-30" || $reg->FechaOro == "2019-".$m."-31"){
+                                                                                        $color ="oro";
+                                                                                    }
+                                                                                }
+                                                                                
+                                                                                if($color =="plata"){
+                                                                                    echo "<td class='mes" . $i ."'><img src='http://services.nikken.com.mx/retos/img/plata.png'></td>";
+                                                                                }if($color=="oro"){
+                                                                                    echo "<td class='mes" . $i ."'><img src='http://services.nikken.com.mx/retos/img/oro.png'></td>";
+                                                                                }if($color==""){
+                                                                                    echo "<td class='mes" . $i ."'> - </td>";
                                                                                 }
                                                                             }
-                                                                            if($reg->FechaOro >= 0){
-                                                                                if($reg->FechaOro == "2019-".$m."-28" || $reg->FechaOro == "2019-".$m."-30" || $reg->FechaOro == "2019-".$m."-31"){
-                                                                                    $color ="oro";
-                                                                                }
-                                                                            }
-                                                                            if($color =="plata"){
-                                                                                echo "<td class='mes" . $i ."'><img src='http://services.nikken.com.mx/retos/img/plata.png'></td>";
-                                                                            }if($color=="oro"){
-                                                                                echo "<td class='mes" . $i ."'><img src='http://services.nikken.com.mx/retos/img/oro.png'></td>";
-                                                                            }if($color==""){
-                                                                                echo "<td class='mes" . $i ."'> - </td>";
-                                                                            }
-                                                                        }?>
-                                                                        
+                                                                        ?>
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>

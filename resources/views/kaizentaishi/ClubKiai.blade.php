@@ -116,7 +116,7 @@
                                     <div class="modal-dialog modal-xl" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="myExtraLargeModalLabel">Ver estatus de mi red</h5>
+                                                <h3 class="modal-title" id="myExtraLargeModalLabel">Estatus de mi red tirmestre: {{$index + 1}}</h3>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
@@ -126,15 +126,15 @@
                                                     <table id="alter_pagination{{$index}}" class="table table-bordered table-hover" style="font-size:11px;">
                                                         <thead>
                                                             <tr>
-                                                                <th style="color: gray" class="text-center">Id Asociado</th>
-                                                                <th style="color: gray">Nivel</th>
-                                                                <th style="color: gray"><p style="width: 420px;margin-left: 34%;">Nombre Asociado</p></th>
-                                                                <th style="color: gray">País</th>
-                                                                <th style="color: gray">Rango</th>
-                                                                <th style="color: gray">VP Acumulado</th>
-                                                                <th style="color: gray">VGP Acumulado</th>
-                                                                <th style="color: gray">No. Trimestre</th>
-                                                                <th style="color: gray">Kiai Trimestre</th>
+                                                                <th class="text-center" style="color: gray">Id Asociado</th>
+                                                                <th class="text-center" style="color: gray">Nivel</th>
+                                                                <th class="text-center" style="color: gray"><p style="width: 330px;">Nombre Asociado</p></th>
+                                                                <th class="text-center" style="color: gray">País</th>
+                                                                <th class="text-center" style="color: gray">Rango</th>
+                                                                <th class="text-center" style="color: gray">VP Acumulado</th>
+                                                                <th class="text-center" style="color: gray">VGP Acumulado</th>
+                                                                <th class="text-center" style="color: gray">No. Trimestre</th>
+                                                                <th class="text-center" style="color: gray">Kiai Trimestre</th>
                                                             </tr>
                                                         </thead>
                                                         @if(!count($detail))
@@ -185,7 +185,7 @@
                                                                     @break
                                                             @endswitch
                                                             @if($gen->NoTrimestre == $s->NoTrimestre)
-                                                                @if ( $gen->Periodo == 201903 || $gen->Periodo == 201906 || $gen->Periodo == 201909)
+                                                                @if ( $gen->Periodo == 201903 || $gen->Periodo == 201906 || $gen->Periodo == 201909 || $gen->Periodo == 201910)
                                                                     <tr role="row" class="even" style="color:black;">
                                                                         <td>{{$gen->associateid}}</td>
                                                                         <td>{{$gen->nivel}}</td>
@@ -220,7 +220,6 @@
                                                             @endif
                                                         @endforeach
                                                         </tbody>
-                                                        
                                                     </table>
                                                 </div>
                                                 <div class="row">
@@ -255,14 +254,10 @@
                                                     <th style="color: gray">Kiai Trimestre</th>
                                                 </tr>
                                             </thead>
-                                            @if(!count($detail))
                                             <tbody>
-                                                <<tr role="row" class="odd" style="color:black;">
-                                                    <td colspan="15" class="center_text"> No se encontraron Resultados</td>
-                                                </tr>
-                                            </tbody>
-                                            @endif
-                                            <tbody>
+                                                @php
+                                                    $VGPAcumulado = 0;
+                                                @endphp
                                             @foreach($detail as $reg)
                                                 @php
                                                     $pais = "";
@@ -322,6 +317,7 @@
                                                         </td>
                                                         <td>
                                                             {{number_format($reg->VGP,2)}}
+                                                            @php $VGPAcumulado = $VGPAcumulado + $reg->VGP @endphp
                                                         </td>
                                                         <td>
                                                             {{number_format($reg->VpAcumulado,2)}}
@@ -342,6 +338,21 @@
                                                 @endif
                                             @endforeach
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="5" class="text-right">VGP acumulado total:</th>
+                                                    <th>{{ number_format($VGPAcumulado, 2) }}</th>
+                                                    <th colspan="3">
+                                                        @if($VGPAcumulado >= 12000)
+                                                            <span class="flaticon-fill-tick" style="font-size: 20px"></span>
+                                                            <span>Cumple</span>
+                                                        @else
+                                                            <span class="flaticon-close-fill" style="font-size: 20px"></span>
+                                                            <span>No Cumple</span>
+                                                        @endif
+                                                    </th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
