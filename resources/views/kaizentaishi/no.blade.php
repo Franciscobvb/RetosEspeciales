@@ -31,7 +31,7 @@
                                 <div class="modal fade bd-example-modal-lg bd-example-modal-lg-img" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header graph text-center" style="background-color: #006b38;">
+                                            <div class="modal-header graph text-center" style="background-color: red;">
                                                 <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
@@ -53,7 +53,7 @@
                             <img src="{{asset('retos/img/alert.png')}}" width="15%">
                             <b>
                                 <h2>
-                                    No cumples con los requisitos para este programa.
+                                    {{ $mensaje }}
                                 </h2>
                             </b>
                             <button class="btn btn-gradient-warning btn-rounded mb-4 mr-2" onclick="window.history.back();">Regresar</button>

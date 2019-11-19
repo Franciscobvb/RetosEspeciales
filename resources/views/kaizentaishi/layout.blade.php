@@ -76,9 +76,9 @@
     <body class="default-sidebar">
         <header class="tabMobileView header navbar fixed-top d-lg-none">
             <div class="nav-toggle">
-                    <a href="javascript:void(0);" class="nav-link sidebarCollapse" data-placement="bottom">
-                        <i class="flaticon-menu-line-2"></i>
-                    </a>
+                <a href="javascript:void(0);" class="nav-link sidebarCollapse" data-placement="bottom">
+                    <i class="flaticon-menu-line-2"></i>
+                </a>
                 <a href="javascript:void(0);" class=""> <img src="http://services.nikken.com.mx/img/icons/logo_nikken_white.png" class="img-fluid" alt="logo"></a>
             </div>
             <ul class="nav navbar-nav">

@@ -194,9 +194,27 @@
                                             <div class="row">
                                                 @php
                                                     $message = "";
+                                                    $msg = false;
+                                                    if($msg == false){
+                                                        if($countOro >= 4){
+                                                            $prOro1 = 100;
+                                                            $metodo = 1;
+                                                            $type = "success";
+                                                            $message = "Felicidades has ganado el reto";
+                                                        }else{
+                                                            $prOro1 = ($countOro / 4) * 100;
+                                                            $message =  $message ."Opción 1: Te hacen falta ".(4-$countOro)." rango oro ";
+                                                            $message =  $message . "para completar el reto";
+                                                            $type = "warning";
+                                                        }
+                                                    }
+
+                                                    if($msg == false){
+                                                        $message =  $message ." u ";
+                                                    }
+
                                                     if($countPlata >= 5){
                                                         if($countOro >= 2){
-                                                            $msg = true;
                                                             $type = "success";
                                                             $message = "Felicidades has alcanzado el reto";
                                                             $prPlata = 100;
@@ -206,31 +224,17 @@
                                                         else{
                                                             $metodo = 1;
                                                             $prOro = ($countOro/2)* 100;
-                                                            $message = "Te hacen falta ".(2-$countOro)." rango oro ";
+                                                            $message = $message . "Te hacen falta ".(2-$countOro)." rango oro ";
                                                             $type = "warning";
                                                         }
                                                     }
                                                     else{
                                                         $metodo = 1;
                                                         $prPlata = ($countPlata/5)* 100;
-                                                        $message = "Opción 1: Te hacen falta ".(5-$countPlata)." rango plata " ;
+                                                        $message = $message . "Opción 2: Te hacen falta ".(5-$countPlata)." rango plata " ;
+                                                        $message = $message . "y ".(2-$countOro)." rango oro ";
+                                                        $message =  $message . "para completar el reto";
                                                         $type = "warning";
-                                                    }
-                                                    if($msg == false){
-                                                        $message =  $message ." u ";
-                                                    }
-                                                    if($msg == false){
-                                                        if($countOro >= 4){
-                                                            $prOro1 = 100;
-                                                            $metodo = 1;
-                                                            $type = "success";
-                                                            $message = "Felicidades has ganado el reto";
-                                                        }else{
-                                                            $prOro1 = ($countOro / 4) * 100;
-                                                            $message =  $message ."Opción 2: Te hacen falta ".(4-$countOro)." rango oro ";
-                                                            $message =  $message . "para completar el reto";
-                                                            $type = "warning";
-                                                        }
                                                     }
                                                     echo "
                                                         <script>

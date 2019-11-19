@@ -12,21 +12,27 @@ class kaizenController extends Controller{
         $NombreReto = "Equipo Kaizen";
         $periodo = date('Ym');
         $info = 'kaizen.png';
+        $mensaje = "No cumples con los requisitos para este programa.";
         $conection = \DB::connection('sqlsrv5');
+            $wintaishi = $conection->select("SELECT * FROM [dbo].[WinTaishi] WHERE associateid = $associateid");
             $sponsor = $conection->select("SELECT * FROM TotalKaizen WHERE associateid = $associateid");
             $response = $conection->select("EXEC [dbo].[Gen_Kaizen] $associateid, $periodo");
         \DB::disconnect('sqlsrv5');
         $associateidencode = base64_encode($associateid);
-        if(sizeof($sponsor) > 0){
+        if(sizeof($wintaishi) > 0){
+            $mensaje = "No cumples con los requisitos para este programa.";
+            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode', 'mensaje'));
+        }
+        else if(sizeof($sponsor) > 0){
             return view('kaizentaishi/kaizen', compact('response', 'sponsor', 'associateid', 'associateidencode'));
         }
         else{
-            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode'));
+            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode', 'mensaje'));
         }
     }
 
     public function updateTotalKaizen(Request $request){
-        $sponsorid = base64_decode($request->sponsorid);
+        $sponsorid = $request->sponsorid;
         $conection = \DB::connection('sqlsrv5');
             $kaizen = $conection->select("SELECT * from [dbo].[WinKaizen] WHERE associateid = $sponsorid");
             $sponsor = $conection->select("SELECT * FROM TotalKaizen WHERE associateid = $sponsorid");
@@ -40,6 +46,7 @@ class kaizenController extends Controller{
         $periodo = date('Ym');
         $NombreReto = "Equipo Taishi";
         $info = 'taishi.png';
+        $mensaje = "No cumples con los requisitos para este programa.";
         $conection = \DB::connection('sqlsrv5');
             $sponsor = $conection->select("SELECT * FROM TotalKaizen WHERE associateid = $associateid");
             $response = $conection->select("EXEC [dbo].[Gen_Kaizen] $associateid, $periodo");
@@ -49,12 +56,12 @@ class kaizenController extends Controller{
             return view('kaizentaishi/taishi', compact('response', 'sponsor', 'associateid', 'associateidencode'));
         }
         else{
-            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode'));
+            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode', 'mensaje'));
         }
     }
 
     public function updateTotalTaishi(Request $request){
-        $sponsorid = base64_decode($request->sponsorid);
+        $sponsorid = $request->sponsorid;
         $conection = \DB::connection('sqlsrv5');
             $taishi = $conection->select("SELECT * FROM [dbo].[WinTaishi] WHERE associateid = $sponsorid");
             $sponsor = $conection->select("SELECT * FROM TotalKaizen WHERE associateid = $sponsorid");
@@ -67,6 +74,7 @@ class kaizenController extends Controller{
         $associateid = base64_decode($request->associateid);
         $NombreReto = "Club Kiai";
         $info = 'ClubKiai.png';
+        $mensaje = "No cumples con los requisitos para este programa.";
         $conexion = \DB::connection('sqlsrv5');
             $detail = $conexion->table('ClubKiai')->where('Associateid','=', $associateid)->orderBy('Periodo','ASC')->get();
             $summary = $conexion->table('ResumenTrimestral')->where('AssociateId','=', $associateid)->orderBy('NoTrimestre','ASC') ->get();
@@ -78,7 +86,7 @@ class kaizenController extends Controller{
             return view('kaizentaishi/ClubKiai', compact('associateid', 'getname', 'genealogy', 'summary', 'detail', 'associateidencode'));
         }
         else{
-            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode'));
+            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode', 'mensaje'));
         }
     }
 
@@ -90,6 +98,7 @@ class kaizenController extends Controller{
         }
         $NombreReto = "Reto SER PRO";
         $info = 'serpro.png';
+        $mensaje = "No cumples con los requisitos para este programa.";
         $conexion = \DB::connection('sqlsrv5');
             $detail = $conexion->table('Reto_SerPro2')->where('sponsor','=', $associateid)->get();
             $total = $conexion->table('TotalPro')->where('sponsor','=',$associateid)->get();
@@ -101,7 +110,7 @@ class kaizenController extends Controller{
             return view('kaizentaishi.SerPro', compact('associateid', 'detail', 'total', 'getname', 'winners', 'staff', 'associateidencode'));
         }
         else{
-            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode'));
+            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode', 'mensaje'));
         }
     }
 
@@ -109,7 +118,8 @@ class kaizenController extends Controller{
         $associateid = base64_decode($request->associateid);
         $NombreReto = "Reto SER PRO";
         $info = 'serpro.png';
+        $mensaje = "No cumples con los requisitos para este programa.";
         $associateidencode = base64_encode($associateid);
-        return view('kaizentaishi/no', compact('NombreReto', 'associateid', 'info', 'associateidencode'));
+        return view('kaizentaishi/no', compact('NombreReto', 'associateid', 'info', 'associateidencode', 'mensaje'));
     }
 }
