@@ -224,7 +224,8 @@
                                                         else{
                                                             $metodo = 1;
                                                             $prOro = ($countOro/2)* 100;
-                                                            $message = $message . "Te hacen falta ".(2-$countOro)." rango oro ";
+                                                            $message = $message . "Opción 2: Te hacen falta ".(2-$countOro)." rango oro ";
+                                                            $message =  $message . "para completar el reto";
                                                             $type = "warning";
                                                         }
                                                     }
@@ -576,7 +577,33 @@
                                     <td class="hide">{{$reg->Email}}</td>
                                     <td class="hide">{{$reg->Telefono}}</td>
                                     <td class="text-center">
-                                        <img src="{{asset("retos/img/$bandera")}}" width="20px">
+                                        @switch($reg->Pais)
+                                            @case('LAT')
+                                                @php $pais = "México"; $bandera = "mexico.png"; @endphp
+                                                @break
+                                            @case('COL')
+                                                @php $pais = "Colombia"; $bandera = "colombia.png"; @endphp
+                                                @break
+                                            @case('CRI')
+                                                @php $pais = "Costa Rica"; $bandera = "costarica.png"; @endphp
+                                                @break
+                                            @case('PAN')
+                                                @php $pais = "Panamá"; $bandera = "panama.png"; @endphp
+                                                @break
+                                            @case('ECU')
+                                                @php $pais = "Ecuador"; $bandera = "ecuador.png"; @endphp
+                                                @break
+                                            @case('PER')
+                                                @php $pais = "Perú"; $bandera = "peru.png"; @endphp
+                                                @break
+                                            @case('SLV')
+                                                @php $pais = "El Salvador"; $bandera = "salvador.png"; @endphp
+                                                @break
+                                            @case('GTM')
+                                                @php $pais = "Guatemala"; $bandera = "guatemala.png"; @endphp
+                                                @break
+                                        @endswitch
+                                        <img src="{{asset("retos/img/$bandera")}}" width="20px"><br>
                                         {{ $pais }}
                                     </td>
                                     <td class="text-center">
@@ -643,47 +670,6 @@
 </div>
 
 @if ($staff == 'Y')
-    @foreach($winners as $win)
-        @php
-            $pais = "";
-            $bandera = "";
-        @endphp
-        <?php $pais_ = str_replace(' ', '', $win->Pais);?>
-        @switch($pais_)
-            @case('LAT')
-                @php $pais = 'México' @endphp
-                @php $bandera = 'mexico.png '@endphp
-                @break
-            @case('COL')
-                @php $pais = 'Colombia' @endphp
-                @php $bandera = 'colombia.png' @endphp
-                @break
-            @case('CRI')
-                @php $pais = 'Costa Rica' @endphp
-                @php $bandera = 'costarica.png' @endphp
-                @break
-            @case('PAN')
-                @php $pais = 'Panamá' @endphp
-                @php $bandera = 'panama.png' @endphp
-                @break
-            @case('ECU')
-                @php $pais = 'Ecuador' @endphp
-                @php $bandera = 'ecuador.png' @endphp
-                @break
-            @case('PER')
-                @php $pais = 'Perú' @endphp
-                @php $bandera = 'peru.png' @endphp
-                @break
-            @case('SLV')
-                @php $pais = 'El Salvador' @endphp
-                @php $bandera = 'salvador.png' @endphp
-                @break
-            @case('GTM')
-                @php $pais = 'Guatemala'@endphp
-                @php $bandera = 'guatemala.png' @endphp
-                @break
-        @endswitch
-    @endforeach
     <div class="row layout-spacing">
         <div class="col-lg-12">
             <div class="statbox widget box box-shadow">
@@ -717,11 +703,53 @@
                             @endif
                             <tbody>
                                 @foreach($winners as $win)
+                                    @php
+                                        $pais = "";
+                                        $bandera = "";
+                                        $nombre = "";
+                                    @endphp
+                                    <?php $pais_ = str_replace(' ', '', $win->Pais); ?>
+                                    <?php $nombre = str_replace('"', '', $win->Nombre); ?>
+                                    @switch($pais_)
+                                        @case('LAT')
+                                            @php $pais = 'México' @endphp
+                                            @php $bandera = 'mexico.png' @endphp
+                                            @break
+                                        @case('COL')
+                                            @php $pais = 'Colombia' @endphp
+                                            @php $bandera = 'colombia.png' @endphp
+                                            @break
+                                        @case('CRI')
+                                            @php $pais = 'Costa Rica' @endphp
+                                            @php $bandera = 'costarica.png' @endphp
+                                            @break
+                                        @case('PAN')
+                                            @php $pais = 'Panamá' @endphp
+                                            @php $bandera = 'panama.png' @endphp
+                                            @break
+                                        @case('ECU')
+                                            @php $pais = 'Ecuador' @endphp
+                                            @php $bandera = 'ecuador.png' @endphp
+                                            @break
+                                        @case('PER')
+                                            @php $pais = 'Perú' @endphp
+                                            @php $bandera = 'peru.png' @endphp
+                                            @break
+                                        @case('SLV')
+                                            @php $pais = 'El Salvador' @endphp
+                                            @php $bandera = 'salvador.png' @endphp
+                                            @break
+                                        @case('GTM')
+                                            @php $pais = 'Guatemala'@endphp
+                                            @php $bandera = 'guatemala.png' @endphp
+                                            @break
+                                    @endswitch
+                                
                                     <tr role="row" class="even" style="color:black;">
                                         <td>{{ $win->Sponsor }}</td>
                                         <td>{{ $win->Plata }}</td>
                                         <td>{{ $win->Oro }}</td>
-                                        <td>{{ $win->Nombre }}</td>
+                                        <td>{{ strtoupper($nombre) }}</td>
                                         <td>{{ $win->Email }}</td>
                                         <td> 
                                             <?php 

@@ -102,8 +102,8 @@ class kaizenController extends Controller{
         $conexion = \DB::connection('sqlsrv5');
             $detail = $conexion->table('Reto_SerPro2')->where('sponsor','=', $associateid)->get();
             $total = $conexion->table('TotalPro')->where('sponsor','=',$associateid)->get();
-            $getname = $conexion->select('select distinct Sponsor,Nombre,Email,Rango,Pais from TotalPro where Sponsor = ?',[$associateid]);
-            $winners = $conexion->select('select * from TotalPro where Plata > =5 and Oro >=2 union all select * from TotalPro where Oro > = 4');   
+            $getname = $conexion->select('SELECT DISTINCT Sponsor,Nombre,Email,Rango,Pais FROM TotalPro WHERE Sponsor = ?',[$associateid]);
+            $winners = $conexion->select('SELECT * FROM TotalPro WHERE Plata > =5 and Oro >=2 UNION ALL SELECT * FROM TotalPro WHERE Oro > = 4');   
         \DB::disconnect('sqlsrv5');
         $associateidencode = base64_encode($associateid);
         if(sizeof($detail) > 0){
