@@ -179,11 +179,11 @@
                     <div class="col-md-3">
                         <div class="form-group col-md-12">
                             <p>VP Acumulado.</p>
-                            <input id="VpAcumulado" type="text" name="VpAcumulado" value="{{ $VpAcumulado }}" class="form-control-rounded form-control" readonly>
+                            <input id="VpAcumulado" type="text" name="VpAcumulado" value="{{ number_format($VpAcumulado) }}" class="form-control-rounded form-control" readonly>
                         </div>
                         <div class="form-group col-md-12">
                             <p>VGP Acumulado.</p>
-                            <input id="VgpAcumulado" type="text" name="VgpAcumulado" value="{{$VgpAcumulado }}" class="form-control-rounded form-control" readonly>
+                            <input id="VgpAcumulado" type="text" name="VgpAcumulado" value="{{ number_format($VgpAcumulado) }}" class="form-control-rounded form-control" readonly>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -248,12 +248,55 @@
                                 <th style="color: gray" class="mesvp9">VP Septiembre</th>
                                 <th style="color: gray" class="mesvp9">VP Octubre</th>
                                 <th style="color: gray" class="mesvp9">VP Noviembre</th>
+                                <th style="color: gray" class="mesvp9">VP Diciembre</th>
                                 <th style="color: gray">VP Total 2019</th>
                                 <th style="color: gray">Nivel</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($response as $row)
+                                @php
+                                    $pais = "";
+                                    $bandera = "";
+                                @endphp
+                                @switch($row->Pais)
+                                    @case('LAT')
+                                        @php $pais = 'México' @endphp
+                                        @php $bandera = 'mexico.png' @endphp
+                                        @break
+                                    @case('COL')
+                                        @php $pais = 'Colombia' @endphp
+                                        @php $bandera = 'colombia.png' @endphp
+                                        @break
+                                    @case('CRI')
+                                        @php $pais = 'Costa Rica' @endphp
+                                        @php $bandera = 'costarica.png' @endphp
+                                        @break
+                                    @case('PAN')
+                                        @php $pais = 'Panamá' @endphp
+                                        @php $bandera = 'panama.png' @endphp
+                                        @break
+                                    @case('ECU')
+                                        @php $pais = 'Ecuador' @endphp
+                                        @php $bandera = 'ecuador.png' @endphp
+                                        @break
+                                    @case('PER')
+                                        @php $pais = 'Perú' @endphp
+                                        @php $bandera = 'peru.png' @endphp
+                                        @break
+                                    @case('SLV')
+                                        @php $pais = 'El Salvador' @endphp
+                                        @php $bandera = 'salvador.png' @endphp
+                                        @break
+                                    @case('GTM')
+                                        @php $pais = 'Guatemala' @endphp
+                                        @php $bandera = 'guatemala.png' @endphp
+                                        @break
+                                    @case('CHL')
+                                        @php $pais = 'Chile' @endphp
+                                        @php $bandera = 'chile.png' @endphp
+                                        @break
+                                @endswitch
                                 <span style="display: none">
                                     @switch($row->RangoA)
                                         @case(1)
@@ -290,18 +333,19 @@
                                     <td class="mesvp1">{{$row->Telefono}}</td>
                                     <td class="mesvp1">{{$row->Email}}</td>
                                     <td>{{$row->FechaIncorp}}</td>
-                                    <td class="mesvp1">{{ $row->VpEnero }}</td>
-                                    <td class="mesvp2">{{ $row->VpFebrero }}</td>
-                                    <td class="mesvp3">{{ $row->VpMarzo }}</td>
-                                    <td class="mesvp4">{{ $row->VpAbril }}</td>
-                                    <td class="mesvp5">{{ $row->VpMayo }}</td>
-                                    <td class="mesvp6">{{ $row->VpJunio }}</td>
-                                    <td class="mesvp7">{{ $row->VpJulio }}</td>
-                                    <td class="mesvp8">{{ $row->VpAgosto }}</td>
-                                    <td class="mesvp9">{{ $row->VpSeptiembre }}</td>
-                                    <td class="mesvp9">{{ $row->VpOctubre }}</td>
-                                    <td class="mesvp9">{{ $row->VpNoviembre }}</td>
-                                    <td>{{$row->VpTotal}}</td>
+                                    <td class="mesvp1">{{ number_format($row->VpEnero) }}</td>
+                                    <td class="mesvp2">{{ number_format($row->VpFebrero) }}</td>
+                                    <td class="mesvp3">{{ number_format($row->VpMarzo) }}</td>
+                                    <td class="mesvp4">{{ number_format($row->VpAbril) }}</td>
+                                    <td class="mesvp5">{{ number_format($row->VpMayo) }}</td>
+                                    <td class="mesvp6">{{ number_format($row->VpJunio) }}</td>
+                                    <td class="mesvp7">{{ number_format($row->VpJulio) }}</td>
+                                    <td class="mesvp8">{{ number_format($row->VpAgosto) }}</td>
+                                    <td class="mesvp9">{{ number_format($row->VpSeptiembre) }}</td>
+                                    <td class="mesvp9">{{ number_format($row->VpOctubre) }}</td>
+                                    <td class="mesvp9">{{ number_format($row->VpNoviembre) }}</td>
+                                    <td class="mesvp9">{{ number_format($row->VpDiciembre) }}</td>
+                                    <td>{{ number_format($row->VpTotal) }}</td>
                                     <td>
                                         @if ($row->lvel != 1)
                                             Grupo Personal
