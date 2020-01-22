@@ -9,7 +9,6 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
         <link href="{{asset('retos/bootstrap/css/bootstrap.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('retos/css/plugins.css')}}" rel="stylesheet" type="text/css" />
-
         <link rel="stylesheet" type="text/css" href="{{asset('retos/plugins/table/datatable/datatables.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('retos/plugins/table/datatable/custom_dt_zero_config.css')}}">
         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/css/buttons.dataTables.min.css">
@@ -18,7 +17,6 @@
         <script src="{{asset('retos/bootstrap/js/popper.min.js')}}"></script>
         <script src="{{asset('retos/bootstrap/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('retos/plugins/scrollbar/jquery.mCustomScrollbar.concat.min.js')}}"></script>
-        <script src="{{asset('retos/js/custom.js')}}"></script>
 
         <script src="{{asset('retos/plugins/sweetalerts/promise-polyfill.js')}}"></script>
         <link href="{{asset('retos/plugins/sweetalerts/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
@@ -38,6 +36,8 @@
 
         <link href="{{asset('retos/css/ui-kit/custom-modal.css')}}" rel="stylesheet" type="text/css" />
         <script src="{{asset('retos/js/modal/classie.js')}}"></script>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 
         @yield('styles')
         <style>
@@ -64,13 +64,14 @@
                 width: 100%;
                 height: calc(2.25rem + 2px);
                 vertical-align: middle;
-                background: #fff url(assets/img/arrow-down.png) no-repeat right .75rem center;
+                background: #fff url({{ asset('retos/img/arrow-down.png') }}) no-repeat right .75rem center;
                 background-size: 13px 14px;
                 -webkit-appearance: none;
                 -moz-appearance: none;
                 appearance: none;
             }
             select.form-control::-ms-expand { display: none; }
+            
         </style>
     </head>
     <body class="default-sidebar">
@@ -120,16 +121,20 @@
                             </a>
                             <ul class="submenu list-unstyled collapse show" id="ecommerce" data-parent="#accordionExample" style="">
                                 <li>
-                                    <a href="../kiai/{{ $associateidencode }}">Club Kiai</a>
+                                    <!--<a href="../kiai/{{ $associateidencode }}">Club Kiai</a>-->
+                                    <a href="http://keizentaishi.test/viajeros/{{ $associateid }}">Club Viajeros</a>
                                 </li>
                                 <li>
-                                    <a href="../serpro/{{ $associateidencode }}/N">Reto Ser Pro</a>
+                                    <!--<a href="../serpro/{{ $associateidencode }}/N">Reto Ser Pro</a>-->
+                                    <a href="http://keizentaishi.test/serpro/{{ $associateid }}/N">Reto Ser Pro</a>
                                 </li>
                                 <li>
-                                    <a href="../kaizen/{{ $associateidencode }}">Equipo Kaizen</a>
+                                    <!--<a href="../kaizen/{{ $associateidencode }}">Equipo Kaizen</a>-->
+                                    <a href="http://keizentaishi.test/kaizen/{{ $associateid }}">Equipo Kaizen</a>
                                 </li>
                                 <li>
-                                    <a href="../taishi/{{ $associateidencode }}">Equipo Taishi</a>
+                                    <!--<a href="../taishi/{{ $associateidencode }}">Equipo Taishi</a>-->
+                                    <a href="http://keizentaishi.test/taishi/{{ $associateid }}">Equipo Taishi</a>
                                 </li>
                             </ul>
                         </li>
@@ -154,6 +159,8 @@
                     @yield('kaizen')
 
                     @yield('taishi')
+
+                    @yield('retos')
 
                     @yield('no')
 
@@ -191,6 +198,7 @@
     <script src="{{asset('retos/plugins/scrollbar/jquery.mCustomScrollbar.concat.min.js')}}"></script>
     <script src="{{asset('retos/plugins/blockui/jquery.blockUI.min.js')}}"></script>
     <script src="{{asset('retos/js/app.js')}}"></script>
+    <script src="{{ asset('retos/main.js') }}"></script>
     <script>
         $(document).ready(function() {
             App.init();
@@ -206,7 +214,7 @@
                 },
                 dom: 'Bfrtip',
                 buttons: [
-                    { extend: 'excel', className: 'btn btn-fill btn-fill-dark btn-rounded mb-4 mr-3', text:"<img src='{{ asset('retos/img/excel.png') }}' width='15px'></img> Exportar a Excel",}
+                    { extend: 'excel', className: 'btn btn-rounded mb-4 mr-3 btnexcel', text:"<img src='{{ asset('retos/img/excel.png') }}' width='15px'></img> Exportar a Excel",}
                 ]
             });
             $('#vgpFinalTxt').text($('#vpFinalLabel').text());

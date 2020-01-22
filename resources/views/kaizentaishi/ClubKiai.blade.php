@@ -1,20 +1,20 @@
 @extends('kaizentaishi.layout')
 
 @section('reto')
-    Club Kiai
+    Club Viajeros
 @endsection
 
 @section('titulo')
-    Nikken | Club Kiai
+    Nikken | Club Viajeros
 @endsection
 
 @section('styles')
-
+    
 @endsection
 
 @section('kiai')
     <div class="row layout-spacing">
-        <div class="col-lg-3">
+        <div class="col-lg-4 col-md-6 mb-2">
             <div class="statbox widget box box-shadow">
                 <div class="widget-header">
                     <div class="row">            
@@ -51,28 +51,26 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-8 col-md-6 mb-2">
             <div class="statbox widget box box-shadow">
                 <div class="widget-header">
-                    <div class="row">
-                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                            @foreach($getname as $n)
-                            <h4>{{$n->AssociateName}}</h4>
-                            @endforeach
-                        </div>                 
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12 text-center">
+                        <h4>{{ trim($getname[0]->AssociateName, " ") }}</h4>
                     </div>
                 </div>
                 <div class="widget-content widget-content-area">
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group col-md-12">
-                                <img src="{{asset('retos/img/kiai_logo.png')}}" width="100%">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <img src="{{ asset('retos/img/kiai_logo.png') }}" width="100%">
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group col-md-12">
-                                <p>Código:</p>
-                                <input id="" type="text" name="" value="{{ $associateid }}" class="form-control-rounded form-control" readonly>
+                        <div class="col-md-6">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Código:</span>
+                                </div>
+                                <input type="text" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $associateid }}" aria-describedby="inputGroup-sizing-sm" readonly>
                             </div>
                         </div>
                     </div>

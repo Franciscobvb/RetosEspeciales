@@ -33,6 +33,11 @@
     .hide{
         display: none;
     }
+
+    .submitRegist{
+        width: 80%;
+        margin: auto;
+    }
 </style>    
 @endsection
 
@@ -42,7 +47,7 @@
 
 @section('kaizen')
 <div class="row layout-spacing">
-    <div class="col-lg-3">
+    <div class="col-lg-4 col-md-6 mb-3">
         <div class="statbox widget box box-shadow">
             <div class="widget-header">
                 <div class="row">
@@ -79,8 +84,7 @@
             </div>
         </div>
     </div>
-    <br>
-    <div class="col-lg-9">
+    <div class="col-lg-4 col-md-6 mb-3">
         <div class="statbox widget box box-shadow">
             <div class="widget-header">
                 <div class="row">
@@ -104,68 +108,76 @@
                             @endforeach
                             @switch($rango)
                                 @case(1)
-                                    {{ $rango = "Directo" }}
-                                    @break
+                                    @php $rango = "Directo" @endphp
                                 @case(3)
-                                    {{ $rango = "Ejecutivo" }}
+                                    @php $rango = "Ejecutivo" @endphp
                                     @break
                                 @case(5)
-                                    {{ $rango = "Plata" }}
+                                    @php $rango = "Plata" @endphp
                                     @break
                                 @case(6)
-                                    {{ $rango = "ORO" }}
+                                    @php $rango = "ORO" @endphp
                                     @break
                                 @case(7)
-                                    {{ $rango = "Platino" }}
+                                    @php $rango = "Platino" @endphp
                                     @break
                                 @case(8)
-                                    {{ $rango = "Diamante" }}
+                                    @php $rango = "Diamante" @endphp
                                     @break
                                 @case(9)
-                                    {{ $rango = "Diamante Real" }}
+                                    @php $rango = "Diamante Real" @endphp
                                     @break
                             @endswitch
                         </div>
-                        <h4>{{ $nombre }}</h4>
+                        <h4 class="text-center">{{ $nombre }}</h4>
                     </div>                 
                 </div>
             </div>
-            <div class="widget-content widget-content-area">
+            <div class="widget-content widget-content-area pl-3 pr-3">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group col-md-12">
-                            <img src="{{asset('retos/img/ser_pro.png')}}" width="100%">
-                        </div>
+                    <div class="form-group col-md-12 ">
+                        <img src="{{asset('retos/img/ser_pro.png')}}" width="100%">
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group col-md-12">
-                            <p>Código.</p>
-                            <input id="" type="text" name="" value="{{ $codigo }}" class="form-control-rounded form-control" readonly>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <p>Rango.</p>
-                            <input id="" type="text" name="" value="{{ $rango }}" class="form-control-rounded form-control" required="" readonly>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group col-md-12">
-                            <p>Correo.</p>
-                            <input id="vgpFinalTxt" type="text" name="vgpFinalTxt" value="{{ $email }}" class="form-control-rounded form-control" readonly>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        @foreach($total as $n)
-                            <?php $countOro = $n->Oro; $countPlata = $n->Plata;?>
-                            <div class="form-group col-md-12">
-                                <p>Total Plata.</p>
-                                <input id="vgpFinalTxt" type="text" name="vgpFinalTxt" value="{{$n->Plata}}" class="form-control-rounded form-control" readonly>
+                    <div class="col-md-12">
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Código:</span>
                             </div>
-                            <div class="form-group col-md-12">
-                                <p>Total Oro.</p>
-                                <input id="vgpFinalTxt" type="text" name="vgpFinalTxt" value="{{$n->Oro}}" class="form-control-rounded form-control" readonly>
+                            <input type="text" class="form-control-rounded-right form-control" aria-label="Small" id="abiGralCode" value="{{ $codigo }}" aria-describedby="inputGroup-sizing-sm" readonly>
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Rango:</span>
                             </div>
-                        @endforeach
+                            <input type="text" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $rango }}" aria-describedby="inputGroup-sizing-sm" readonly>
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Correo:</span>
+                            </div>
+                            <input type="text" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $email }}" aria-describedby="inputGroup-sizing-sm" readonly>
+                        </div>
                     </div>
+                    @foreach($total as $n)
+                        <?php $countOro = $n->Oro; $countPlata = $n->Plata;?>
+                        <div class="col-md-6">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Total Plata:</span>
+                                </div>
+                                <input type="text" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $n->Plata }}" aria-describedby="inputGroup-sizing-sm" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Total Oro:</span>
+                                </div>
+                                <input type="text" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $n->Oro }}" aria-describedby="inputGroup-sizing-sm" readonly>
+                            </div>
+                        </div>
+                    @endforeach
+                    
                     <div class="col-md-12 text-center">
                         @php
                             $countOro = 0;
@@ -177,8 +189,10 @@
                         @endphp
                         @foreach($total as $n)
                             <?php $countOro = $n->Oro; $countPlata = $n->Plata;?>
-                            <button type="button" class="btn btn-primary btn-rounded  mb-4 mr-2" data-toggle="modal" data-target=".bd-example-modal-lg-G">Ver grafica de avances</button>
-
+                            <button type="button" class="btn btn-gradient-primary btn-rounded  mb-4 mr-2" data-toggle="modal" data-target=".bd-example-modal-lg-G">
+                                Ver grafica de avances
+                                <i class="flaticon-view ml-1" style="font-size: 15px"></i>
+                            </button>
                             <div class="modal fade bd-example-modal-lg bd-example-modal-lg-G" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
@@ -505,6 +519,73 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-4 col-md-12">
+        <div class="statbox widget box box-shadow">
+            <div class="widget-header">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-12 text-center">
+                    @if ($accesToRegist == true)
+                        <h4>Registrate al Club Viajeros</h4>
+                    @else
+                        <h4>Ya registrado a Club Viajeros</h4>
+                    @endif
+                </div>
+            </div>
+            <div class="widget-content widget-content-area">
+                @if ($accesToRegist != true)
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4"></div>
+                        <div class="col-md-6 col-sm-4 text-center">
+                            <img src="{{ asset('retos/img/registred.svg') }}" width="100%">
+                        </div>
+                    </div>
+                @else
+                    <div class="col-md-12">
+                        <form method="POST" id="registClub" enctype="multipart/form-data">
+                            <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Código:</span>
+                                </div>
+                                <input type="text" name="abiCode" id="abiCode" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $associateid }}" aria-describedby="inputGroup-sizing-sm" readonly>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Nombre:</span>
+                                </div>
+                                <input type="text" name="abiName" id="abiName" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $nombre }}" aria-describedby="inputGroup-sizing-sm" readonly>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Fecha de registro:</span>
+                                </div>
+                                <input type="text" name="dateReg" id="dateReg" class="form-control-rounded-right form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly value="{{ Date('Y-m-d') }}">
+                            </div>
+                            <div class="input-group input-group-sm mb-3" hidden>
+                                <div class="input-group-prepend">
+                                    <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Rango:</span>
+                                </div>
+                                <input type="text" name="rank" id="rank" class="form-control-rounded-right form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly value="{{ $curRank }}">
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Sponsor:</span>
+                                </div>
+                                <select class="form-control form-control-rounded-right form-control-sm selectpicker js-example-basic-single" id="sponsor" name="sponsor">
+                                    <option selected disabled value="">Seleccione...</option>
+                                </select>
+                            </div>
+                            <div class="input-group input-group-sm mb-2">
+                                <button type="button" class="btn btn-gradient-warning btn-rounded submitRegist" onclick="submitReg()">
+                                    Registrar
+                                    <i class="flaticon-send ml-1"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
 </div>
 
 @foreach($detail as $reg)
@@ -823,5 +904,5 @@
         } );
     });
 </script>
-<script src="{{asset('retos/main.js')}}"></script>
+
 @endsection
