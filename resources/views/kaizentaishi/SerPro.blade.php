@@ -47,7 +47,7 @@
 
 @section('kaizen')
 <div class="row layout-spacing">
-    <div class="col-lg-4 col-md-6 mb-3">
+    <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
         <div class="statbox widget box box-shadow">
             <div class="widget-header">
                 <div class="row">
@@ -84,7 +84,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4 col-md-6 mb-3">
+    <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
         <div class="statbox widget box box-shadow">
             <div class="widget-header">
                 <div class="row">
@@ -106,7 +106,7 @@
                                     $rango = $n->Rango;
                                 @endphp
                             @endforeach
-                            @switch($rango)
+                            @switch($curRank)
                                 @case(1)
                                     @php $rango = "Directo" @endphp
                                 @case(3)
@@ -129,7 +129,7 @@
                                     @break
                             @endswitch
                         </div>
-                        <h4 class="text-center">{{ $nombre }}</h4>
+                        <h4 class="text-center">{{ $abiInfo[0]->AssociateName}}</h4>
                     </div>                 
                 </div>
             </div>
@@ -143,19 +143,13 @@
                             <div class="input-group-prepend">
                                 <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Código:</span>
                             </div>
-                            <input type="text" class="form-control-rounded-right form-control" aria-label="Small" id="abiGralCode" value="{{ $codigo }}" aria-describedby="inputGroup-sizing-sm" readonly>
+                            <input type="text" class="form-control-rounded-right form-control" aria-label="Small" id="abiGralCode" value="{{ $associateid }}" aria-describedby="inputGroup-sizing-sm" readonly>
                         </div>
                         <div class="input-group input-group-sm mb-3">
                             <div class="input-group-prepend">
                                 <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Rango:</span>
                             </div>
-                            <input type="text" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $rango }}" aria-describedby="inputGroup-sizing-sm" readonly>
-                        </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <div class="input-group-prepend">
-                                <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Correo:</span>
-                            </div>
-                            <input type="text" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $email }}" aria-describedby="inputGroup-sizing-sm" readonly>
+                            <input type="text" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $curRank }}" aria-describedby="inputGroup-sizing-sm" readonly>
                         </div>
                     </div>
                     @foreach($total as $n)
@@ -519,26 +513,21 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4 col-md-12">
+    <div class="col-xl-4 col-lg-10 col-md-12">
         <div class="statbox widget box box-shadow">
             <div class="widget-header">
                 <div class="col-xl-12 col-md-12 col-sm-12 col-12 text-center">
-                    @if ($accesToRegist == true)
-                        <h4>Registrate al Club Viajeros</h4>
+                    @if ($accesToRegist == "si")
+                        <h4>Registrate al Reto Ser Pro</h4>
+                    @elseif($accesToRegist == "registrado")
+                        <h4>Ya registrado a Reto Ser Pro</h4>
                     @else
-                        <h4>Ya registrado a Club Viajeros</h4>
+                        <h4>Ya eres mayor a rango plata</h4>
                     @endif
                 </div>
             </div>
             <div class="widget-content widget-content-area">
-                @if ($accesToRegist != true)
-                    <div class="row">
-                        <div class="col-md-3 col-sm-4"></div>
-                        <div class="col-md-6 col-sm-4 text-center">
-                            <img src="{{ asset('retos/img/registred.svg') }}" width="100%">
-                        </div>
-                    </div>
-                @else
+                @if ($accesToRegist == "si")
                     <div class="col-md-12">
                         <form method="POST" id="registClub" enctype="multipart/form-data">
                             <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
@@ -550,17 +539,17 @@
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Nombre:</span>
-                                </div>
-                                <input type="text" name="abiName" id="abiName" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $nombre }}" aria-describedby="inputGroup-sizing-sm" readonly>
-                            </div>
-                            <div class="input-group input-group-sm mb-3">
-                                <div class="input-group-prepend">
                                     <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Fecha de registro:</span>
                                 </div>
                                 <input type="text" name="dateReg" id="dateReg" class="form-control-rounded-right form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly value="{{ Date('Y-m-d') }}">
                             </div>
-                            <div class="input-group input-group-sm mb-3" hidden>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Nombre:</span>
+                                </div>
+                                <input type="text" name="dateReg" id="dateReg" class="form-control-rounded-right form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required readonly value="{{ trim($abiInfo[0]->AssociateName, " ") }}">
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
                                     <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Rango:</span>
                                 </div>
@@ -581,6 +570,20 @@
                                 </button>
                             </div>
                         </form>
+                    </div>
+                @elseif($accesToRegist == "registrado")
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4"></div>
+                        <div class="col-md-6 col-sm-4 text-center">
+                            <img src="{{ asset('retos/img/registred.svg') }}" width="100%">
+                        </div>
+                    </div>
+                @else
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4"></div>
+                        <div class="col-md-6 col-sm-4 text-center">
+                            <img src="{{ asset('retos/img/info.png') }}" width="100%">
+                        </div>
                     </div>
                 @endif
             </div>
@@ -882,27 +885,5 @@
 @endsection
 
 @section('scripts')
-<script>
-    $(document).ready(function() {
-        $('#detail').DataTable( {
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-            },
-            dom: 'Bfrtip',
-            buttons: [
-                { extend: 'excel', className: 'btn btn-fill btn-fill-dark btn-rounded mb-4 mr-3', text:"<img src='{{ asset('retos/img/excel.png') }}' width='15px'></img> Exportar a Excel",}
-            ]
-        } );
-        $('#detail1').DataTable( {
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-            },
-            dom: 'Bfrtip',
-            buttons: [
-                { extend: 'excel', className: 'btn btn-fill btn-fill-dark btn-rounded mb-4 mr-3', text:"<img src='{{ asset('retos/img/excel.png') }}' width='15px'></img> Exportar a Excel",}
-            ]
-        } );
-    });
-</script>
-
+<script src="{{ asset('retos/main.js') }}"></script>
 @endsection

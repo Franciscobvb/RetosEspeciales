@@ -93,7 +93,6 @@ function loadUpline(){
             $('#sponsor').append(result); 
         },
         error: function(result) {
-            // en caso de error, avisa al usuario que no se puedo registrar la informacion
             swal(
                 'Error!',
                 'No es posible realizar el registro, contacta con soporte.',
@@ -108,7 +107,6 @@ loadUpline();
 function submitReg(){
     var _token = $("#_token").val();
     var abicode = $("#abiCode").val().trim();
-    var abiName = $("#abiName").val().trim();
     var dateReg = $("#dateReg").val().trim();
     var sponsor = $("#sponsor").val();
     var rank = $("#rank").val().trim();
@@ -118,16 +116,14 @@ function submitReg(){
         error();
     }
     else{
-        if(abicode != "" && abiName != "" && dateReg != ""){
+        if(abicode != "" && dateReg != ""){
             sponsor = sponsor.split('-');
             sponsorCode = sponsor[0];
             sponsorName = sponsor[1];
-            console.log()
 
             var data = {
                 _token: _token,
                 abicode: abicode,
-                abiName: abiName,
                 dateReg: dateReg,
                 sponsorCode: sponsorCode,
                 sponsorName: sponsorName,
@@ -154,7 +150,7 @@ function submitReg(){
                     else if(result == "exist"){
                         swal.queue([{
                             type: 'error',
-                            title: 'Ya te encuentras registrado en el club viajeros',
+                            title: 'Ya te encuentras registrado en el Reto Ser Pro',
                             allowOutsideClick: false,
                         }]);
                     }

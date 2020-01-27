@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class kaizenController extends Controller{
-
     public function index(Request $request){
         //$associateid = base64_decode($request->associateid);
         $associateid = $request->associateid;
@@ -103,32 +102,42 @@ class kaizenController extends Controller{
         $NombreReto = "Reto SER PRO";
         $info = 'serpro.png';
         $mensaje = "No cumples con los requisitos para este programa.";
+        $period = Date("Ym");
         $conexion = \DB::connection('sqlsrv5');
-            $detail = $conexion->table('Reto_SerPro2')->where('sponsor','=', $associateid)->get();
-            $total = $conexion->table('TotalPro')->where('sponsor','=',$associateid)->get();
-            $getname = $conexion->select('SELECT DISTINCT Sponsor,Nombre,Email,Rango,Pais FROM TotalPro WHERE Sponsor = ?',[$associateid]);
-            $winners = $conexion->select('SELECT * FROM TotalPro WHERE Plata > =5 and Oro >=2 UNION SELECT * FROM TotalPro WHERE Oro > = 4');
+            $abiInfo = $conexion->select("SELECT * FROM Puntos2020 WHERE Associateid = $associateid AND Periodo = $period;");
+            $detail = $conexion->select("SELECT * FROM Reto_SerPro2_TEST WHERE sponsor = $associateid");
+            $total = $conexion->select("SELECT * FROM TotalPro_test WHERE sponsor = $associateid");
+            $getname = $conexion->select('SELECT DISTINCT Sponsor,Nombre,Email,Rango,Pais FROM TotalPro_test WHERE Sponsor = ?',[$associateid]);
+            $winners = $conexion->select('SELECT * FROM TotalPro_test WHERE Plata > =5 and Oro >=2 UNION SELECT * FROM TotalPro WHERE Oro > = 4');
             $getRank = $conexion->select("SELECT max(rango) AS Rango FROM Rangos_Avance WHERE numci = $associateid GROUP BY numci;");
             $getRegist = $conexion->select("SELECT * FROM Registros_SerPro WHERE Associateid = $associateid;");
+            $getExceptionOro = $conexion->select("SELECT DISTINCT * FROM Rangos_Avance WHERE Rango >= 6 AND FechaAvance>='2019-12-01';");
         \DB::disconnect('sqlsrv5');
         $associateidencode = base64_encode($associateid);
-        $curRank = trim($getRank[0]->Rango, " ");
-        ($curRank == 2 || $curRank == 4) ? $curRank++ : null;
-        if(sizeof($detail) > 0){
-            if($curRank < 5){
-                $accesToRegist = true;
-            }
-            else if(sizeof($getRegist) >= 1){
-                $accesToRegist = true;
+        $curRank = trim($abiInfo[0]->Rango, " ");
+        
+        if($curRank == "DIR" || $curRank == "EXE" || $curRank == "PLA"){
+            if(sizeof($getRegist) >= 1){
+                $accesToRegist = "registrado";
             }
             else{
-                $accesToRegist = true;
+                $accesToRegist = "si";
             }
-            return view('kaizentaishi.SerPro', compact('associateid', 'detail', 'total', 'getname', 'winners', 'staff', 'associateidencode', 'accesToRegist', 'curRank'));
-        }
+        } 
         else{
-            return view('kaizentaishi.no', compact('NombreReto', 'associateid', 'info', 'associateidencode', 'mensaje'));
+            foreach($getExceptionOro as $ex){
+                echo trim($ex->numci, " ");
+                if($associateid === trim($ex->numci, " ")){
+                    $accesToRegist = "si";
+                    break;
+                }
+                else{
+                    $accesToRegist = 'mayorpla';
+                }
+            }
         }
+
+        return view('kaizentaishi.SerPro', compact('associateid', 'detail', 'total', 'getname', 'winners', 'staff', 'associateidencode', 'accesToRegist', 'curRank', 'abiInfo'));
     }
 
     public function loadUpline(Request $request){
@@ -158,11 +167,22 @@ class kaizenController extends Controller{
     public function registeClubV(Request $request){
         $_token = $request->_token;
         $abicode = $request->abicode;
-        $abiName = $request->abiName;
         $dateReg = $request->dateReg;
         $sponsorCode = $request->sponsorCode;
         $sponsorName = $request->sponsorName;
         $rank = $request->rank;
+
+        switch($rank){
+            case "DIR":
+                $rank = 1;
+            break;
+            case "EXE":
+                $rank = 3;
+            break;
+            case "PLA":
+                $rank = 5;
+            break;
+        }
 
         $conexion = \DB::connection('sqlsrv5');
             $getRegist = $conexion->select("SELECT * FROM Registros_SerPro WHERE Associateid = $abicode;");
@@ -176,5 +196,9 @@ class kaizenController extends Controller{
         else{
             return "registrado";
         }
+    }
+
+    public function mantenimiento(){
+        return view('kaizentaishi.mantenimiento');
     }
 }

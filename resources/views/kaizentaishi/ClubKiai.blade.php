@@ -72,6 +72,12 @@
                                 </div>
                                 <input type="text" class="form-control-rounded-right form-control" aria-label="Small" value="{{ $associateid }}" aria-describedby="inputGroup-sizing-sm" readonly>
                             </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="form-control-rounded-left input-group-text" id="inputGroup-sizing-sm">Nombre:</span>
+                                </div>
+                                <input type="text" class="form-control-rounded-right form-control" aria-label="Small" value="{{ trim($getname[0]->AssociateName, " ") }}" aria-describedby="inputGroup-sizing-sm" readonly>
+                            </div>
                         </div>
                     </div>
                 </div>

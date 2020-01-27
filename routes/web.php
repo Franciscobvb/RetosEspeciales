@@ -9,3 +9,4 @@ Route::get('/taishi/{associateid}', 'Retos\kaizenController@indexTaishi');
 Route::get('/taishi/{associateid}/updatetaishi', 'Retos\kaizenController@updateTotalTaishi');
 Route::get('/no/{associateid}', 'Retos\kaizenController@no');
 Route::post('/registeclubv', 'Retos\kaizenController@registeClubV');
+Route::get('/mantenimiento', 'Retos\kaizenController@mantenimiento');

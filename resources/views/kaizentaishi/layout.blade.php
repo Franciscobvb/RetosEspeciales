@@ -30,14 +30,10 @@
         <script src="https://cdn.datatables.net/buttons/1.6.0/js/dataTables.buttons.min.js"></script>
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
         <script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-        <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-        <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
         <script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js"></script>
 
         <link href="{{asset('retos/css/ui-kit/custom-modal.css')}}" rel="stylesheet" type="text/css" />
         <script src="{{asset('retos/js/modal/classie.js')}}"></script>
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 
         @yield('styles')
         <style>
@@ -71,7 +67,7 @@
                 appearance: none;
             }
             select.form-control::-ms-expand { display: none; }
-            
+            .btnExcel{background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);}
         </style>
     </head>
     <body class="default-sidebar">
@@ -181,7 +177,7 @@
                     <div class="col-xl-5 col-md-6 col-sm-6 col-12">
                         <ul class="list-inline mb-0 d-flex justify-content-sm-end justify-content-center mr-sm-3 ml-sm-0 mx-3">
                             <li class="list-inline-item  mr-3">
-                                <p class="bottom-footer">&#xA9; 2019 <a href="javascript:void(0)">NIKKEN Latinoamerica</a></p>
+                                <p class="bottom-footer">&#xA9; {{ Date("Y") }} <a href="javascript:void(0)">NIKKEN Latinoamerica</a></p>
                             </li>
                             <li class="list-inline-item align-self-center">
                                 <div class="scrollTop"><i class="flaticon-up-arrow-fill-1"></i></div>
@@ -196,9 +192,7 @@
     <script src="{{asset('retos/bootstrap/js/popper.min.js')}}"></script>
     <script src="{{asset('retos/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('retos/plugins/scrollbar/jquery.mCustomScrollbar.concat.min.js')}}"></script>
-    <script src="{{asset('retos/plugins/blockui/jquery.blockUI.min.js')}}"></script>
     <script src="{{asset('retos/js/app.js')}}"></script>
-    <script src="{{ asset('retos/main.js') }}"></script>
     <script>
         $(document).ready(function() {
             App.init();
@@ -214,7 +208,7 @@
                 },
                 dom: 'Bfrtip',
                 buttons: [
-                    { extend: 'excel', className: 'btn btn-rounded mb-4 mr-3 btnexcel', text:"<img src='{{ asset('retos/img/excel.png') }}' width='15px'></img> Exportar a Excel",}
+                    { extend: 'excel', className: 'btn btn-gradient-warning btn-rounded btnExcel', text:"<img src='{{ asset('retos/img/excel.png') }}' width='15px'></img> Exportar a Excel",}
                 ]
             });
             $('#vgpFinalTxt').text($('#vpFinalLabel').text());
